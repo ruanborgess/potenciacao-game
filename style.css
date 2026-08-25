@@ -1,0 +1,109 @@
+:root {
+  --bg-deep: #020a2a;
+  --bg-mid: #0a1d42;
+  --neon-blue: #65d9ff;
+  --neon-violet: #c794ff;
+  --neon-gold: #f8d86b;
+  --shadow-blue: rgba(101, 217, 255, 0.55);
+  --panel: rgba(12, 18, 38, 0.72);
+  --panel-border: rgba(140, 174, 255, 0.7);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, rgba(0, 8, 30, 0.38) 0%, rgba(2, 8, 28, 0.15) 30%, rgba(2, 8, 28, 0.72) 100%),
+    url("assets/images/fundo_inicio.png") center 93% / cover no-repeat;
+  font-family: "Press Start 2P", cursive;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(144, 104, 255, 0.18), transparent 42%);
+  pointer-events: none;
+}
+
+.menu-wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 0 5vh;
+}
+
+.menu-panel {
+  width: min(520px, 82vw);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+}
+
+.menu-btn {
+  width: 100%;
+  min-height: 72px;
+  border: 3px solid var(--panel-border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(21, 29, 58, 0.9), rgba(8, 14, 34, 0.9));
+  color: #f5f6ff;
+  font-family: "Press Start 2P", cursive;
+  text-transform: uppercase;
+}
+
+.menu-btn:hover,
+.menu-btn:focus-visible {
+  transform: translateY(-2px) scale(1.01);
+  border-color: rgba(130, 226, 255, 0.96);
+  color: #f5f6ff;
+  box-shadow:
+    0 0 0 2px rgba(248, 216, 107, 0.22),
+    0 14px 30px rgba(0, 0, 0, 0.4),
+    0 0 34px rgba(176, 127, 255, 0.5);
+}
+
+.menu-btn-primary {
+  border-color: rgba(255, 219, 118, 0.9);
+}
+
+.menu-btn-primary:hover,
+.menu-btn-primary:focus-visible {
+  border-color: rgba(255, 221, 103, 1);
+  box-shadow:
+    0 0 0 2px rgba(248, 216, 107, 0.22),
+    0 14px 30px rgba(0, 0, 0, 0.4),
+    0 0 34px rgba(176, 127, 255, 0.5);
+}
+
+@media (max-width: 576px) {
+  .menu-wrapper {
+    padding-bottom: 8vh;
+  }
+
+  .menu-panel {
+    width: min(420px, 88vw);
+    gap: 0.7rem;
+  }
+
+  .menu-btn {
+    min-height: 62px;
+    font-size: 0.64rem;
+    letter-spacing: 0.06em;
+  }
+}
