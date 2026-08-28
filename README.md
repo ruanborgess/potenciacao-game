@@ -3,6 +3,12 @@ Jogo de Potenciação
 
 # Padrão de Commits e Versões
 
+- `index.html` — menu inicial e tela de carregamento
+- `pages/` — páginas HTML secundárias, como o mapa
+- `css/` — folhas de estilo
+- `js/` — scripts da aplicação
+- `assets/images/` — imagens do jogo
+
 Este projeto utiliza **Conventional Commits** para manter o histórico organizado.
 
 * `feat:` — nova funcionalidade
