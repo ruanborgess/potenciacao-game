@@ -28,6 +28,7 @@ newGameButton.addEventListener("click", () => {
     document.body.classList.remove("is-loading");
     loadingScreen.classList.remove("is-visible");
     loadingScreen.setAttribute("aria-hidden", "true");
+    sessionStorage.setItem("batalhaPotenciasMostrarHistoria", "true");
     window.location.href = "pages/mapa.html";
   };
 

@@ -3,20 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <title>Mapa | Batalha das Potências</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="../css/mapa.css" />
   </head>
+
   <body>
+
     <main class="map-screen">
-      <div class="map-panel">
-        <p class="map-kicker">Reino exponencial</p>
-        <h1>Mapa da aventura</h1>
-        <p>Escolha seu próximo desafio.</p>
-        <a class="map-back-btn" href="../index.html">Voltar ao menu</a>
+
+      <!-- Área que acompanha exatamente a tela -->
+      <div class="map-world">
+
+        <!-- ==========================================
+             FASE 1 - VILA
+             ========================================== -->
+        <a
+          href="vila.html"
+          class="phase phase-vila"
+          data-phase="vila"
+          aria-label="Fase Vila"
+        >
+          <span class="phase-name">
+            FASE 1
+            <strong>VILA</strong>
+          </span>
+        </a>
+
+
+        <!-- ==========================================
+             FASE 2 - ÁRVORE
+             ========================================== -->
+        <a
+          href="arvore.html"
+          class="phase phase-arvore"
+          data-phase="arvore"
+          aria-label="Fase Árvore Mística"
+        >
+          <span class="phase-name">
+            FASE 2
+            <strong>ÁRVORE MÍSTICA</strong>
+          </span>
+        </a>
+
+
+        <!-- ==========================================
+             FASE 3 - PORTÃO
+             ========================================== -->
+        <a
+          href="portao.html"
+          class="phase phase-portao"
+          data-phase="portao"
+          aria-label="Fase Portão"
+        >
+          <span class="phase-name">
+            FASE 3
+            <strong>O PORTÃO</strong>
+          </span>
+        </a>
+
+
+        <!-- ==========================================
+             FASE 4 - CASTELO
+             ========================================== -->
+        <a
+          href="castelo.html"
+          class="phase phase-castelo"
+          data-phase="castelo"
+          aria-label="Fase Castelo"
+        >
+          <span class="phase-name">
+            FASE 4
+            <strong>CASTELO</strong>
+          </span>
+        </a>
+
+
+        <!-- ==========================================
+             PERSONAGEM
+             ========================================== -->
+        <img
+          src="../assets/images/personagem.png"
+          alt="Personagem"
+          class="map-character"
+          id="mapCharacter"
+        />
+
       </div>
+
     </main>
+
+    <section class="story-intro" id="story-intro" aria-labelledby="story-title">
+      <div class="story-character-stage" aria-hidden="true">
+        <img
+          src="../assets/images/personagem.png"
+          alt=""
+          class="story-character story-character--scene-1"
+          id="story-character"
+        />
+      </div>
+
+      <div class="story-dialogue">
+        <p class="story-kicker" id="story-step">História 1 de 4</p>
+        <h1 id="story-title">O Reino Exponencial precisa de você.</h1>
+        <p id="story-text" aria-live="polite">
+          A luz das torres se apagou, e uma sombra avança do castelo.
+        </p>
+        <button class="story-start-button" id="story-start-button" type="button">
+          Próximo
+        </button>
+      </div>
+    </section>
+
+    <script src="../js/mapa.js"></script>
+
   </body>
 </html>

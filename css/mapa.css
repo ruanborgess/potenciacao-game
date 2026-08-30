@@ -2,6 +2,7 @@
   --neon-blue: #65d9ff;
   --neon-violet: #c794ff;
   --neon-gold: #f8d86b;
+
   --panel: rgba(12, 18, 38, 0.72);
   --panel-border: rgba(140, 174, 255, 0.7);
 }
@@ -20,82 +21,469 @@ body {
 body {
   display: grid;
   place-items: center;
+
   background:
-    linear-gradient(180deg, rgba(0, 8, 30, 0.2), rgba(2, 8, 28, 0.45)),
-    url("../assets/images/fundo_mapa.png") center 5% / cover no-repeat;
+    linear-gradient(
+      180deg,
+      rgba(0, 8, 30, 0.2),
+      rgba(2, 8, 28, 0.45)
+    ),
+    url("../assets/images/fundo_mapa.png") 43% / cover no-repeat;
+
   color: #f5f6ff;
+
   font-family: "Press Start 2P", cursive;
+
   overflow: hidden;
 }
 
-body::before {
+/* =====================================================
+   FASES
+   ===================================================== */
+
+.phase {
+  position: absolute;
+
+  width: 150px;
+  height: 100px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+
+  pointer-events: auto;
+
+  z-index: 10;
+
+  background: transparent;
+
+  border: none;
+
+  cursor: pointer;
+
+  transform: translate(-50%, -50%);
+}
+
+
+/* =====================================================
+   NOMES DAS FASES
+   ===================================================== */
+
+.phase-name {
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 9px 13px;
+
+  color: white;
+
+  font-size: 10px;
+
+  line-height: 1.5;
+
+  text-align: center;
+
+  white-space: nowrap;
+
+  text-shadow:
+    2px 2px 0 #080b18,
+    -1px -1px 0 #080b18,
+    1px -1px 0 #080b18,
+    -1px 1px 0 #080b18,
+    0 0 8px rgba(0, 0, 0, 0.9);
+
+  transition:
+    transform 180ms ease,
+    color 180ms ease,
+    filter 180ms ease;
+}
+
+.phase-name strong {
+  color: var(--neon-gold);
+
+  font-size: 12px;
+
+  text-shadow:
+    2px 2px 0 #251b08,
+    0 0 10px rgba(248, 216, 107, 0.55);
+}
+
+
+/* =====================================================
+   EFEITO AO PASSAR O MOUSE
+   ===================================================== */
+
+.phase:hover .phase-name {
+
+  color: #ffffff;
+
+  filter:
+    drop-shadow(0 0 5px rgba(101, 217, 255, 0.8))
+    drop-shadow(0 0 12px rgba(101, 217, 255, 0.35));
+}
+
+.phase:hover .phase-name strong {
+  color: #fff2a8;
+}
+
+
+/* =====================================================
+   POSIÇÃO DOS NOMES
+   ===================================================== */
+
+/*
+   A posição da própria fase é calculada
+   pelo JavaScript.
+
+   Aqui apenas decidimos onde o nome
+   fica em relação ao local da fase.
+*/
+
+
+/* Vila */
+.phase-vila .phase-name {
+  transform: translate(-5px, -75px);
+}
+
+/* Árvore */
+.phase-arvore .phase-name {
+  transform: translate(55px, -25px);
+}
+
+/* Portão */
+.phase-portao .phase-name {
+  transform: translate(0, -72px);
+}
+
+/* Castelo */
+.phase-castelo .phase-name {
+  transform: translate(0, 95px);
+}
+
+
+/* =====================================================
+   PERSONAGEM
+   ===================================================== */
+
+.map-character {
+  position: absolute;
+
+  /*
+    Tamanho do personagem no mapa.
+    Ele fica pequeno para parecer
+    um personagem caminhando pelo mundo.
+  */
+
+  width: 88px;
+  height: auto;
+
+  pointer-events: none;
+
+  z-index: 20;
+
+  transform: translate(-50%, -88%);
+
+  image-rendering: pixelated;
+
+  filter:
+    drop-shadow(0 5px 4px rgba(0, 0, 0, 0.7))
+    drop-shadow(0 0 8px rgba(74, 122, 255, 0.35));
+
+  transition:
+    left 350ms ease,
+    top 350ms ease,
+    opacity 180ms ease;
+}
+
+.story-active .map-character {
+  opacity: 0;
+}
+
+
+/* =====================================================
+   PEQUENO EFEITO DE DESTAQUE NA FASE ATUAL
+   ===================================================== */
+
+.phase.current .phase-name {
+  color: #ffffff;
+
+  animation: phaseGlow 1.8s ease-in-out infinite;
+}
+
+.phase.current .phase-name strong {
+  color: #fff3a6;
+}
+
+
+@keyframes phaseGlow {
+  0%,
+  100% {
+    filter:
+      drop-shadow(0 0 4px rgba(101, 217, 255, 0.35));
+  }
+
+  50% {
+    filter:
+      drop-shadow(0 0 10px rgba(101, 217, 255, 0.9));
+  }
+}
+
+
+/* =====================================================
+   RESPONSIVIDADE
+   ===================================================== */
+
+@media (max-width: 900px) {
+
+  .phase {
+    width: 125px;
+    height: 90px;
+  }
+
+  .phase-name {
+    font-size: 8px;
+  }
+
+  .phase-name strong {
+    font-size: 9px;
+  }
+
+  .map-character {
+    width: 70px;
+  }
+}
+
+
+@media (max-width: 600px) {
+
+  .phase {
+    width: 105px;
+    height: 75px;
+  }
+
+  .phase-name {
+    font-size: 7px;
+
+    gap: 4px;
+
+    padding: 6px 8px;
+  }
+
+  .phase-name strong {
+    font-size: 8px;
+  }
+
+  .map-character {
+    width: 56px;
+  }
+}
+
+
+/* =====================================================
+   ABERTURA DA HISTÓRIA
+   ===================================================== */
+
+.story-intro {
   position: fixed;
   inset: 0;
-  content: "";
-  background: radial-gradient(circle at center, rgba(144, 104, 255, 0.18), transparent 42%);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: clamp(1.5rem, 6vw, 7rem);
+  overflow: hidden;
+  background: linear-gradient(90deg, rgba(2, 7, 29, 0.18), rgba(2, 7, 29, 0.7) 52%, rgba(2, 7, 29, 0.9));
+  opacity: 0;
   pointer-events: none;
+  transition: opacity 480ms ease, visibility 480ms ease;
+  visibility: hidden;
 }
 
-.map-screen {
+.story-active .story-intro {
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
+.story-character {
+  position: absolute;
+  bottom: clamp(-22rem, -19vw, -10rem);
+  left: clamp(1rem, 9vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+  height: auto;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72)) drop-shadow(0 0 28px rgba(69, 116, 255, 0.38));
+  animation: heroEntrance 720ms cubic-bezier(.18, .84, .3, 1) both;
+}
+
+/* Ajuste individualmente posição e tamanho dos personagens da história. */
+.story-character.story-character--scene-1 {
+  bottom: clamp(-22rem, -16vw, -10rem);
+  left: clamp(1rem, 9vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+}
+
+.story-character.story-character--scene-2 {
+  bottom: clamp(-22rem, -12vw, -10rem);
+  left: clamp(1rem, 8vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+}
+
+.story-character.story-character--scene-3 {
+  bottom: clamp(-14rem, -12vw, -6rem);
+  left: clamp(1rem, 4vw, 10rem);
+  width: clamp(460px, 52vw, 780px);
+}
+
+.story-character.story-character--scene-4 {
+  bottom: clamp(-22rem, -18vw, -10rem);
+  left: clamp(1rem, 9vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+}
+
+.story-dialogue {
   position: relative;
   z-index: 1;
-  width: 100%;
-  display: grid;
-  place-items: center;
-  padding: 1.5rem;
-}
-
-.map-panel {
-  width: min(560px, 84vw);
-  padding: clamp(1.5rem, 5vw, 2.8rem);
-  border: 3px solid var(--panel-border);
+  width: min(610px, 49vw);
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+  border: 3px solid rgba(140, 174, 255, 0.78);
   border-radius: 18px;
-  background: var(--panel);
-  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.5), 0 0 35px rgba(101, 217, 255, 0.2);
-  text-align: center;
+  background: linear-gradient(145deg, rgba(16, 27, 66, 0.94), rgba(7, 12, 35, 0.94));
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.52), 0 0 36px rgba(101, 217, 255, 0.18);
+  animation: dialogueEntrance 620ms 180ms ease both;
 }
 
-.map-kicker {
-  margin: 0 0 0.8rem;
+.story-kicker {
+  margin: 0 0 1.25rem;
   color: var(--neon-gold);
-  font-size: clamp(0.7rem, 2vw, 1rem);
-  line-height: 1.7;
-  text-transform: uppercase;
-}
-
-h1 {
-  margin: 0;
-  color: var(--neon-violet);
-  font-size: clamp(1.1rem, 4vw, 2rem);
-  line-height: 1.5;
-  text-transform: uppercase;
-  text-shadow: 0 0 18px rgba(199, 148, 255, 0.65);
-}
-
-.map-panel p:not(.map-kicker) {
-  margin: 1.2rem 0 0;
-  font-size: clamp(0.55rem, 1.5vw, 0.75rem);
+  font-size: clamp(0.52rem, 1vw, 0.7rem);
   line-height: 1.8;
-}
-
-.map-back-btn {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 1rem 1.4rem;
-  border: 3px solid rgba(255, 219, 118, 0.9);
-  border-radius: 18px;
-  background: linear-gradient(180deg, rgba(21, 29, 58, 0.9), rgba(8, 14, 34, 0.9));
-  color: #f5f6ff;
-  font-size: 0.65rem;
-  line-height: 1.5;
-  text-decoration: none;
   text-transform: uppercase;
-  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.map-back-btn:hover,
-.map-back-btn:focus-visible {
-  transform: translateY(-2px) scale(1.01);
+.story-dialogue h1 {
+  margin: 0;
+  color: #fff6bf;
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.story-dialogue p:not(.story-kicker) {
+  margin: 1.35rem 0 0;
   color: #f5f6ff;
-  box-shadow: 0 0 0 2px rgba(248, 216, 107, 0.22), 0 0 34px rgba(176, 127, 255, 0.5);
+  font-size: clamp(0.56rem, 1.1vw, 0.76rem);
+  line-height: 2;
+}
+
+.story-start-button {
+  margin-top: 1.7rem;
+  padding: 0.95rem 1.2rem;
+  border: 3px solid rgba(255, 219, 118, 0.92);
+  border-radius: 11px;
+  background: linear-gradient(180deg, #405bd2, #182875);
+  box-shadow: 0 6px 0 #10184c, 0 0 18px rgba(248, 216, 107, 0.24);
+  color: #fff;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: clamp(0.55rem, 1vw, 0.72rem);
+  line-height: 1.5;
+  text-transform: uppercase;
+  transition: transform 180ms ease, filter 180ms ease;
+}
+
+.story-start-button:hover,
+.story-start-button:focus-visible {
+  filter: brightness(1.16);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+@keyframes heroEntrance {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes dialogueEntrance {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 780px) {
+  .story-intro {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1.1rem;
+    background: linear-gradient(180deg, rgba(2, 7, 29, 0.62), rgba(2, 7, 29, 0.32) 45%, rgba(2, 7, 29, 0.82));
+  }
+
+  .story-character-stage {
+    width: 100%;
+  }
+
+  .story-character {
+    bottom: -7.4rem;
+    left: 50%;
+    width: min(105vw, 455px);
+    transform: translateX(-50%);
+  }
+
+  /* Versões mobile: altere cada cena sem afetar as outras. */
+  .story-character.story-character--scene-1 {
+    bottom: -7.4rem;
+    left: 50%;
+    width: min(105vw, 455px);
+  }
+
+  .story-character.story-character--scene-2 {
+    bottom: -7.4rem;
+    left: 50%;
+    width: min(105vw, 455px);
+  }
+
+  .story-character.story-character--scene-3 {
+    bottom: -4rem;
+    left: 50%;
+    width: min(122vw, 510px);
+  }
+
+  .story-character.story-character--scene-4 {
+    bottom: -7.4rem;
+    left: 50%;
+    width: min(105vw, 455px);
+  }
+
+  .story-dialogue {
+    width: min(100%, 540px);
+    padding: 1.25rem;
+  }
+
+  .story-kicker {
+    margin-bottom: 0.9rem;
+  }
+
+  .story-dialogue p:not(.story-kicker) {
+    margin-top: 1rem;
+    line-height: 1.8;
+  }
+
+  .story-start-button {
+    width: 100%;
+    margin-top: 1.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-intro,
+  .story-character,
+  .story-dialogue {
+    animation: none;
+    transition: none;
+  }
 }
