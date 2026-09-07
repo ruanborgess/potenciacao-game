@@ -1,128 +1,251 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
+    <meta name="theme-color" content="#080b25" />
 
-  <meta charset="UTF-8" />
+    <title>Árvore dos Expoentes | Batalha das Potências</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+    <!-- Fonte Pixel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <title>Fase 2 | Árvore Mística</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
+    <link rel="stylesheet" href="../css/arvore.css" />
+  </head>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-    crossorigin
-  />
+  <body>
+    <main class="boss-selection" aria-labelledby="page-title">
+      <!-- BOTÃO VOLTAR -->
+      <a class="back-button" href="mapa.html" aria-label="Voltar ao mapa">
+        ←
+      </a>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-    rel="stylesheet"
-  />
+      <!-- ================================================= -->
+      <!-- CABEÇALHO -->
+      <!-- ================================================= -->
 
-  <style>
+      <header class="selection-title">
+        <div class="phase-label">FASE 2</div>
 
-    * {
-      box-sizing: border-box;
-    }
+        <div class="title-frame">
+          <span class="title-crystal crystal-left"></span>
 
-    body {
-      margin: 0;
+          <h1 id="page-title">ÁRVORE DOS EXPOENTES</h1>
 
-      min-height: 100vh;
+          <span class="title-crystal crystal-right"></span>
+        </div>
+      </header>
 
-      display: grid;
-      place-items: center;
+      <!-- ================================================= -->
+      <!-- LISTA DE CHEFES -->
+      <!-- ================================================= -->
 
-      background:
-        linear-gradient(
-          rgba(5, 10, 30, 0.75),
-          rgba(5, 10, 30, 0.9)
-        );
+      <section class="boss-list" aria-label="Escolha um mini-chefe">
+        <!-- CHEFE 1 -->
 
-      color: white;
+        <button
+          class="boss-card is-selected"
+          type="button"
+          data-boss="0"
+          aria-pressed="true"
+        >
+          <span class="boss-number"> 1 </span>
 
-      font-family: "Press Start 2P", cursive;
+          <div class="boss-image-container">
+            <img
+              src="../assets/images/boss1_arvore.png"
+              alt="Guardião das Raízes"
+            />
+          </div>
 
-      text-align: center;
-    }
+          <span class="boss-card-copy">
+            <strong>
+              GUARDIÃO<br />
+              DAS RAÍZES
+            </strong>
 
-    .fase {
-      padding: 40px;
-    }
+            <small> NÍVEL 12 </small>
 
-    h1 {
-      color: #c794ff;
+            <small> DIFICULDADE </small>
 
-      font-size: clamp(
-        20px,
-        4vw,
-        36px
-      );
+            <span class="stars" aria-label="3 de 5 estrelas"> ★★★☆☆ </span>
+          </span>
 
-      line-height: 1.6;
-    }
+          <span class="card-arrow"> › </span>
 
-    p {
-      max-width: 700px;
+          <em> ATUAL </em>
+        </button>
 
-      margin: 25px auto;
+        <!-- CHEFE 2 -->
 
-      font-size: 12px;
+        <button
+          class="boss-card"
+          type="button"
+          data-boss="1"
+          aria-pressed="false"
+        >
+          <span class="boss-number"> 2 </span>
 
-      line-height: 2;
-    }
+          <div class="boss-image-container">
+            <img
+              src="../assets/images/boss1_arvore.png"
+              alt="Sentinela dos Expoentes"
+            />
+          </div>
 
-    a {
-      display: inline-block;
+          <span class="boss-card-copy">
+            <strong>
+              SENTINELA<br />
+              DOS EXPOENTES
+            </strong>
 
-      margin-top: 20px;
+            <small> NÍVEL 16 </small>
 
-      padding: 16px 22px;
+            <small> DIFICULDADE </small>
 
-      border: 3px solid #65d9ff;
+            <span class="stars" aria-label="4 de 5 estrelas"> ★★★★☆ </span>
+          </span>
 
-      color: white;
+          <span class="card-arrow"> › </span>
+        </button>
 
-      text-decoration: none;
+        <!-- CHEFE 3 -->
 
-      font-size: 10px;
-    }
+        <button
+          class="boss-card"
+          type="button"
+          data-boss="2"
+          aria-pressed="false"
+        >
+          <span class="boss-number"> 3 </span>
 
-    a:hover {
-      background: rgba(101, 217, 255, 0.2);
-    }
+          <div class="boss-image-container">
+            <img
+              src="../assets/images/boss1_arvore.png"
+              alt="Entidade Exponencial"
+            />
+          </div>
 
-  </style>
+          <span class="boss-card-copy">
+            <strong>
+              ENTIDADE<br />
+              EXPONENCIAL
+            </strong>
 
-</head>
+            <small> NÍVEL 20 </small>
 
-<body>
+            <small> DIFICULDADE </small>
 
-  <main class="fase">
+            <span class="stars" aria-label="5 de 5 estrelas"> ★★★★★ </span>
+          </span>
 
-    <h1>FASE 2 — ÁRVORE MÍSTICA</h1>
+          <span class="card-arrow"> › </span>
+        </button>
+      </section>
 
-    <p>
-      Uma antiga árvore guarda os segredos
-      das potências. Será que você consegue
-      dominar seus desafios?
-    </p>
+      <!-- ================================================= -->
+      <!-- ÁREA CENTRAL DO CHEFE -->
+      <!-- ================================================= -->
 
-    <a href="mapa.html">
-      VOLTAR AO MAPA
-    </a>
+      <section class="boss-showcase" aria-live="polite">
+        <div class="current-boss-label">
+          <span>✦</span>
 
-  </main>
+          CHEFE ATUAL
 
-</body>
+          <span>✦</span>
+        </div>
 
+        <h2 id="boss-name">GUARDIÃO DAS RAÍZES</h2>
+
+        <!-- ÁREA DO BOSS -->
+
+        <div class="boss-art">
+          <div class="boss-glow"></div>
+
+          <div class="boss-platform-glow"></div>
+
+          <img
+            id="boss-image"
+            src="../assets/images/boss1_arvore.png"
+            alt="Guardião das Raízes"
+          />
+        </div>
+
+        <!-- SOBRE O CHEFE -->
+
+        <div class="boss-about">
+          <div class="about-title">✦ &nbsp; SOBRE O CHEFE &nbsp; ✦</div>
+
+          <p id="boss-description">
+            Protetor ancestral das raízes exponenciais. Suas perguntas testam
+            sua base.
+          </p>
+        </div>
+
+        <!-- BOTÃO -->
+
+        <button class="fight-button" id="fight-button" type="button">
+          <span>⚔</span>
+
+          ENFRENTAR ESTE CHEFE
+
+          <span>⚔</span>
+        </button>
+      </section>
+
+      <!-- ================================================= -->
+      <!-- PAINEL DIREITO -->
+      <!-- ================================================= -->
+
+      <aside class="info-panel" aria-label="Informações do chefe">
+        <h2>✦ &nbsp; INFORMAÇÕES &nbsp; ✦</h2>
+
+        <!-- VIDA -->
+
+        <div class="info-block">
+          <p>VIDA DO CHEFE</p>
+
+          <strong class="health-value">
+            <span class="heart"> ♥ </span>
+
+            <span id="boss-health"> 1.200 / 1.200 </span>
+          </strong>
+
+          <div class="health-bar" aria-label="Vida do chefe: cheia" role="img">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+        </div>
+
+        <!-- EXPERIÊNCIA -->
+
+        <div class="info-block">
+          <p>EXP DE RECOMPENSA</p>
+
+          <strong class="exp-value">
+            <span class="exp-star"> ✦ </span>
+
+            <span id="boss-exp"> 250 EXP </span>
+          </strong>
+
+          <div class="exp-bar" aria-hidden="true">
+            <i></i>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="../js/arvore.js"></script>
+  </body>
 </html>

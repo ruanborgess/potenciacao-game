@@ -22,13 +22,13 @@ const phases = {
   },
 
   portao: {
-    x: 1120,
+    x: 1110,
     y: 400
   },
 
   castelo: {
     x: 1380,
-    y: 30
+    y: 15
   }
 };
 
@@ -36,7 +36,7 @@ const characterOffsets = {
   vila: { x: 0, y: 100 },
   arvore: { x: 50, y: 180 },
   portao: { x: -100, y: 100 },
-  castelo: { x: -50, y: 250 }
+  castelo: { x: -75, y: 250 }
 };
 
 
