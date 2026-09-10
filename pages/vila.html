@@ -1,128 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
+
 <html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b25" />
 
-<head>
+    <title>Seleção de Chefes | Batalha das Potências</title>
 
-  <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  />
+    <link rel="stylesheet" href="../css/arvore.css" />
+  </head>
 
-  <title>Fase 1 | Vila</title>
+  <body data-phase="vila">
+    <main class="boss-selection" aria-labelledby="page-title">
+      <a class="back-button" href="mapa.html" aria-label="Voltar ao mapa"> < </a>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  />
+      <header class="selection-title">
+        <div class="title-frame">
+          <span class="title-crystal crystal-left"></span>
 
-  <link
-    rel="preconnect"
-    href="https://fonts.gstatic.com"
-    crossorigin
-  />
+          <h1 id="page-title">NOME DA FASE</h1>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
-    rel="stylesheet"
-  />
+          <span class="title-crystal crystal-right"></span>
+        </div>
+      </header>
 
-  <style>
+      <section class="boss-list" aria-label="Escolha um mini-chefe">
+        <button class="boss-card is-selected" type="button" aria-pressed="true">
+          <span class="boss-number">1</span>
 
-    * {
-      box-sizing: border-box;
-    }
+          <div class="boss-image-container">
+            <img src="../assets/images/boss1_arvore.png" alt="" />
+          </div>
 
-    body {
-      margin: 0;
+          <span class="boss-card-copy">
+            <strong></strong>
 
-      min-height: 100vh;
+            <small></small>
 
-      display: grid;
-      place-items: center;
+            <small>DIFICULDADE</small>
 
-      background:
-        linear-gradient(
-          rgba(5, 10, 30, 0.75),
-          rgba(5, 10, 30, 0.9)
-        );
+            <span class="stars"></span>
+          </span>
 
-      color: white;
+          <span class="card-arrow"> > </span>
 
-      font-family: "Press Start 2P", cursive;
+          <em>ATUAL</em>
+        </button>
 
-      text-align: center;
-    }
+        <button class="boss-card" type="button" aria-pressed="false">
+          <span class="boss-number">2</span>
 
-    .fase {
-      padding: 40px;
-    }
+          <div class="boss-image-container">
+            <img src="../assets/images/boss1_arvore.png" alt="" />
+          </div>
 
-    h1 {
-      color: #f8d86b;
+          <span class="boss-card-copy">
+            <strong></strong>
 
-      font-size: clamp(
-        20px,
-        4vw,
-        36px
-      );
+            <small></small>
 
-      line-height: 1.6;
-    }
+            <small>DIFICULDADE</small>
 
-    p {
-      max-width: 700px;
+            <span class="stars"></span>
+          </span>
 
-      margin: 25px auto;
+          <span class="card-arrow"> > </span>
+        </button>
 
-      font-size: 12px;
+        <button class="boss-card" type="button" aria-pressed="false">
+          <span class="boss-number">3</span>
 
-      line-height: 2;
-    }
+          <div class="boss-image-container">
+            <img src="../assets/images/boss1_arvore.png" alt="" />
+          </div>
 
-    a {
-      display: inline-block;
+          <span class="boss-card-copy">
+            <strong></strong>
 
-      margin-top: 20px;
+            <small></small>
 
-      padding: 16px 22px;
+            <small>DIFICULDADE</small>
 
-      border: 3px solid #65d9ff;
+            <span class="stars"></span>
+          </span>
 
-      color: white;
+          <span class="card-arrow"> > </span>
+        </button>
+      </section>
 
-      text-decoration: none;
+      <section class="boss-showcase" aria-live="polite">
+        <div class="current-boss-label">
+          <span>✦</span> CHEFE ATUAL <span>✦</span>
+        </div>
 
-      font-size: 10px;
-    }
+        <h2 id="boss-name"></h2>
 
-    a:hover {
-      background: rgba(101, 217, 255, 0.2);
-    }
+        <div class="boss-art">
+          <div class="boss-glow"></div>
 
-  </style>
+          <div class="boss-platform-glow"></div>
 
-</head>
+          <img id="boss-image" src="../assets/images/boss1_arvore.png" alt="" />
+        </div>
 
-<body>
+        <div class="boss-about">
+          <div class="about-title">✦ SOBRE O CHEFE ✦</div>
 
-  <main class="fase">
+          <p id="boss-description"></p>
+        </div>
 
-    <h1>FASE 1 — VILA</h1>
+        <button class="fight-button" id="fight-button" type="button">
+          <span>⚔</span> ENFRENTAR ESTE CHEFE <span>⚔</span>
+        </button>
+      </section>
 
-    <p>
-      Prepare-se, aventureiro!
-      Seu primeiro desafio de potenciação
-      começa na vila.
-    </p>
+      <aside class="info-panel" aria-label="Informações do chefe">
+        <h2>✦ INFORMAÇÕES ✦</h2>
 
-    <a href="mapa.html">
-      VOLTAR AO MAPA
-    </a>
+        <div class="info-block">
+          <p>VIDA DO CHEFE</p>
 
-  </main>
+          <strong class="health-value">
+            <span class="heart">♥</span>
 
-</body>
+            <span id="boss-health"></span>
+          </strong>
 
+          <div class="health-bar" aria-label="Vida do chefe: cheia" role="img">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <p>EXP DE RECOMPENSA</p>
+
+          <strong class="exp-value">
+            <span class="exp-star">✦</span>
+
+            <span id="boss-exp"></span>
+          </strong>
+
+          <div class="exp-bar" aria-hidden="true">
+            <i></i>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <script src="../js/selecao-boss.js"></script>
+  </body>
 </html>
