@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080b25" />
+
+  <title>Seleção de Chefes | Batalha das Potências</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../css/arvore.css" />
+</head>
+
+<body>
+
+  <main class="boss-selection" aria-labelledby="page-title">
+
+    <a class="back-button" href="mapa.html" aria-label="Voltar ao mapa"> < </a>
+
+    <header class="selection-title">
+      <div class="title-frame">
+        <span class="title-crystal crystal-left"></span>
+        <h1 id="page-title">NOME DA FASE</h1>
+        <span class="title-crystal crystal-right"></span>
+      </div>
+    </header>
+
+    <section class="boss-list" aria-label="Escolha um mini-chefe">
+
+      <button class="boss-card is-selected" type="button" aria-pressed="true">
+        <span class="boss-number">1</span>
+        <div class="boss-image-container">
+          <img/> <!-- Tag para carregar a imagem pelo JS-->
+        </div>
+        <span class="boss-card-copy">
+          <strong></strong>
+          <small></small>
+          <small>DIFICULDADE</small>
+          <span class="stars"></span>
+        </span>
+        <span class="card-arrow"> > </span>
+        <em>ATUAL</em>
+      </button>
+
+      <button class="boss-card" type="button" aria-pressed="false">
+        <span class="boss-number">2</span>
+        <div class="boss-image-container">
+          <img/> <!-- Tag para carregar a imagem pelo JS-->
+        </div>
+        <span class="boss-card-copy">
+          <strong></strong>
+          <small></small>
+          <small>DIFICULDADE</small>
+          <span class="stars"></span>
+        </span>
+        <span class="card-arrow"> > </span>
+      </button>
+
+      <button class="boss-card" type="button" aria-pressed="false">
+        <span class="boss-number">3</span>
+        <div class="boss-image-container">
+          <img/> <!-- Tag para carregar a imagem pelo JS-->
+        </div>
+        <span class="boss-card-copy">
+          <strong></strong>
+          <small></small>
+          <small>DIFICULDADE</small>
+          <span class="stars"></span>
+        </span>
+        <span class="card-arrow"> > </span>
+      </button>
+
+    </section>
+
+    <section class="boss-showcase" aria-live="polite">
+
+      <div class="current-boss-label">
+        <span>✦</span> CHEFE ATUAL <span>✦</span>
+      </div>
+
+      <h2 id="boss-name"></h2>
+
+      <div class="boss-art">
+        <div class="boss-glow"></div>
+        <div class="boss-platform-glow"></div>
+        <img id="boss-image"/> <!-- Tag para carregar imagem Boss-->
+      </div>
+
+      <div class="boss-about">
+        <div class="about-title">✦ SOBRE O CHEFE ✦</div>
+        <p id="boss-description"></p>
+      </div>
+
+      <button class="fight-button" id="fight-button" type="button">
+        <span>⚔</span> ENFRENTAR ESTE CHEFE <span>⚔</span>
+      </button>
+
+    </section>
+
+    <aside class="info-panel" aria-label="Informações do chefe">
+
+      <h2>✦ INFORMAÇÕES ✦</h2>
+
+      <div class="info-block">
+        <p>VIDA DO CHEFE</p>
+        <strong class="health-value"><span class="heart">♥</span><span id="boss-health"></span></strong>
+
+        <div class="health-bar" aria-label="Vida do chefe: cheia" role="img">
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <p>EXP DE RECOMPENSA</p>
+        <strong class="exp-value"><span class="exp-star">✦</span><span id="boss-exp"></span></strong>
+
+        <div class="exp-bar" aria-hidden="true">
+          <i></i>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <script src="../js/selecao-boss.js"></script>
+
+</body>
+</html>

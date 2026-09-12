@@ -139,8 +139,10 @@ const phaseTitles = {
   castelo: "CASTELO EXPONENCIAL"
 };
 
-if (document.body.dataset.phase) {
-const phase = document.body.dataset.phase;
+const phase = new URLSearchParams(window.location.search).get("fase");
+
+if (phase && phaseBosses[phase]) {
+document.body.dataset.phase = phase;
 const bosses = phaseBosses[phase];
 
 const cards = [...document.querySelectorAll(".boss-card")];
@@ -216,4 +218,6 @@ elements.fight.addEventListener("click", () => {
 });
 
 selectBoss(0);
+} else {
+  window.location.replace("mapa.html");
 }
