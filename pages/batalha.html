@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#080b25" />
+    <title>Batalha | Batalha das Potências</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/batalha.css" />
+  </head>
+  <body>
+    <main class="battle-screen" aria-labelledby="battle-title">
+      <a id="back-button" class="back-button" href="mapa.html" aria-label="Voltar à seleção de chefes">&lt;</a>
+      <header class="battle-header">
+        <p id="phase-name">FASE</p>
+        <h1 id="battle-title">BATALHA</h1>
+      </header>
+      <section class="combatant combatant-player" aria-label="Seu personagem">
+        <p>VOCÊ</p>
+        <img src="../assets/images/personagem.png" alt="Personagem" />
+      </section>
+      <section class="combatant combatant-boss" aria-label="Chefe adversário">
+        <p id="boss-name">CHEFE</p>
+        <img id="boss-image" alt="Chefe adversário" />
+      </section>
+      <div class="battle-ground" aria-hidden="true"></div>
+    </main>
+    <script src="../js/selecao-boss.js"></script>
+    <script src="../js/batalha.js"></script>
+  </body>
+</html>

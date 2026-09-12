@@ -139,10 +139,12 @@ const phaseTitles = {
   castelo: "CASTELO EXPONENCIAL"
 };
 
+if (document.body.dataset.phase) {
 const phase = document.body.dataset.phase;
 const bosses = phaseBosses[phase];
 
 const cards = [...document.querySelectorAll(".boss-card")];
+let selectedBossIndex = 0;
 
 const elements = {
   title: document.querySelector("#page-title"),
@@ -155,11 +157,12 @@ const elements = {
   fight: document.querySelector("#fight-button")
 };
 
-function stars(amount) {
-  return "★".repeat(amount) + "☆".repeat(5 - amount);
+function stars(difficulty) {
+  return "★".repeat(difficulty) + "☆".repeat(5 - difficulty);
 }
 
 function selectBoss(index) {
+  selectedBossIndex = index;
   const boss = bosses[index];
   
   cards.forEach((card, cardIndex) => {
@@ -209,7 +212,8 @@ cards.forEach((card, index) => {
 });
 
 elements.fight.addEventListener("click", () => {
-  elements.fight.textContent = "✦ DESAFIO EM BREVE ✦";
+  window.location.href = `batalha.html?fase=${encodeURIComponent(phase)}&chefe=${selectedBossIndex}`;
 });
 
 selectBoss(0);
+}

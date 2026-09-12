@@ -1,0 +1,175 @@
+:root {
+  --gold: #ffc949;
+  --violet: #a879ff;
+  --text: #f8f4ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  color: var(--text);
+  font-family: "Press Start 2P", cursive;
+  background: #070a1c;
+}
+
+.battle-screen {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+  background-image: linear-gradient(180deg, rgba(4, 7, 25, .12) 20%, rgba(3, 5, 18, .52) 100%), var(--battle-background);
+  background-position: center;
+  background-size: cover;
+}
+
+.battle-screen::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background: radial-gradient(ellipse at center bottom, transparent 25%, rgba(4, 3, 18, .38) 100%);
+}
+
+.back-button {
+  position: absolute;
+  z-index: 4;
+  top: clamp(1rem, 3vw, 2rem);
+  left: clamp(1rem, 3vw, 2rem);
+  display: grid;
+  width: 55px;
+  height: 50px;
+  place-items: center;
+  color: var(--gold);
+  font-size: 1.6rem;
+  text-decoration: none;
+  border: 3px solid var(--violet);
+  border-radius: 10px;
+  background: linear-gradient(145deg, #29215c, #09091e);
+  box-shadow: 0 0 14px rgba(126, 74, 255, .55);
+}
+
+.back-button:hover,
+.back-button:focus-visible {
+  color: #fff;
+  border-color: var(--gold);
+  outline: 0;
+}
+
+.battle-header {
+  position: absolute;
+  z-index: 3;
+  top: clamp(1rem, 2vw, 1.8rem);
+  left: 50%;
+  width: min(620px, 70vw);
+  padding: .75rem 1rem;
+  text-align: center;
+  border: 3px solid var(--violet);
+  border-radius: 8px;
+  background: linear-gradient(rgba(40, 25, 78, .94), rgba(10, 10, 31, .94));
+  box-shadow: 0 0 18px rgba(125, 66, 255, .45);
+  transform: translateX(-50%);
+}
+
+.battle-header p,
+.battle-header h1,
+.combatant p {
+  margin: 0;
+  text-shadow: 2px 2px #140d28, 0 0 10px currentColor;
+}
+
+.battle-header p {
+  margin-bottom: .55rem;
+  color: #d9c1ff;
+  font-size: clamp(.42rem, .8vw, .58rem);
+}
+
+.battle-header h1 {
+  color: var(--gold);
+  font-size: clamp(.75rem, 1.5vw, 1.1rem);
+}
+
+.combatant {
+  position: absolute;
+  z-index: 2;
+  bottom: 8vh;
+  display: flex;
+  width: min(35vw, 440px);
+  height: min(65vh, 620px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.combatant p {
+  z-index: 1;
+  order: 2;
+  margin-top: .7rem;
+  color: var(--gold);
+  font-size: clamp(.48rem, 1vw, .7rem);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.combatant img {
+  width: 100%;
+  height: calc(100% - 2rem);
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 13px 8px rgba(0, 0, 0, .78));
+}
+
+.combatant-player {
+  left: 9vw;
+}
+
+.combatant-boss {
+  right: 9vw;
+}
+
+/* O chefe olha para o personagem, que está à esquerda. */
+.combatant-boss img {
+  transform: scaleX(-1);
+}
+
+.battle-ground {
+  position: absolute;
+  z-index: 1;
+  bottom: 5.5vh;
+  left: 50%;
+  width: min(82vw, 1100px);
+  height: 42px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(137, 98, 255, .38), transparent 68%);
+  filter: blur(6px);
+  transform: translateX(-50%);
+}
+
+@media (max-width: 700px) {
+  .battle-header {
+    top: 1.25rem;
+    width: calc(100vw - 7rem);
+  }
+
+  .combatant {
+    bottom: 12vh;
+    width: 47vw;
+    height: 53vh;
+  }
+
+  .combatant-player {
+    left: 1vw;
+  }
+
+  .combatant-boss {
+    right: 1vw;
+  }
+}
