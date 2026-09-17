@@ -7,27 +7,97 @@
     <title>Batalha | Batalha das Potências</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../css/batalha.css" />
   </head>
   <body>
     <main class="battle-screen" aria-labelledby="battle-title">
-      <a id="back-button" class="back-button" href="mapa.html" aria-label="Voltar à seleção de chefes">&lt;</a>
+      <a
+        id="back-button"
+        class="back-button"
+        href="fase.html"
+        aria-label="Voltar à seleção de chefes"
+        >‹</a
+      >
+
       <header class="battle-header">
         <p id="phase-name">FASE</p>
         <h1 id="battle-title">BATALHA</h1>
       </header>
-      <section class="combatant combatant-player" aria-label="Seu personagem">
-        <p>VOCÊ</p>
-        <img src="../assets/images/personagem.png" alt="Personagem" />
+
+      <section id="boss-turn" class="boss-turn" aria-live="polite" hidden>
+        <p id="boss-turn-label">O CHEFE CONJURA</p>
+        <p id="boss-question-text"></p>
+        <p id="boss-answer-text" class="boss-answer-text"></p>
       </section>
+
       <section class="combatant combatant-boss" aria-label="Chefe adversário">
-        <p id="boss-name">CHEFE</p>
+        <div class="combatant-tag enemy-tag">
+          <span id="boss-name">CHEFE</span
+          ><small id="boss-level">NÍVEL 1</small>
+        </div>
+        <div class="altar altar-boss" aria-hidden="true"></div>
         <img id="boss-image" alt="Chefe adversário" />
+        <section class="combatant-status enemy-status">
+          <div class="status-title">
+            <span id="boss-status-name">CHEFE</span
+            ><span id="boss-health-value">100 / 100</span>
+          </div>
+          <div class="health-track" aria-label="Vida do chefe">
+            <i id="boss-health-bar"></i>
+          </div>
+        </section>
       </section>
-      <div class="battle-ground" aria-hidden="true"></div>
+
+      <section class="combatant combatant-player" aria-label="Seu personagem">
+        <div class="combatant-tag player-tag">
+          <span>MAGO EXPONENCIAL</span><small>NÍVEL 1</small>
+        </div>
+        <div class="altar altar-player" aria-hidden="true"></div>
+        <img src="../assets/images/personagem.png" alt="Mago Exponencial" />
+        <section class="combatant-status player-status">
+          <div class="status-title">
+            <span>SUA VIDA</span><span id="player-health-value">100 / 100</span>
+          </div>
+          <div class="health-track player-health" aria-label="Sua vida">
+            <i id="player-health-bar"></i>
+          </div>
+          <p class="energy-line">
+            ✦ ENERGIA <span id="energy-value">50 / 50</span>
+          </p>
+        </section>
+      </section>
+
+      <section class="battle-panel" aria-label="Comandos de batalha">
+        <section class="challenge-card" aria-live="polite">
+          <p class="turn-label" id="turn-label">PREPARE-SE PARA ATACAR</p>
+          <p class="question" id="question-text">Escolha um ataque.</p>
+          <form id="answer-form" class="answer-form">
+            <label class="sr-only" for="answer-input">Sua resposta</label>
+            <input
+              id="answer-input"
+              inputmode="numeric"
+              autocomplete="off"
+              placeholder="RESPOSTA"
+              disabled
+            />
+            <button id="answer-button" type="submit" disabled>LANÇAR</button>
+          </form>
+          <p class="battle-message" id="battle-message">
+            Ataques especiais usam perguntas mais difíceis.
+          </p>
+        </section>
+
+        <section class="attacks-card" aria-label="Ataques mágicos">
+          <div id="attack-list" class="attack-list"></div>
+        </section>
+      </section>
     </main>
     <script src="../js/selecao-boss.js"></script>
+    <script src="../js/conteudo-batalha.js"></script>
     <script src="../js/batalha.js"></script>
   </body>
 </html>
