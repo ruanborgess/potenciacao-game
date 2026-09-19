@@ -1,3 +1,4 @@
+/* Cores principais */
 :root {
   --gold: #ffc948;
   --gold-deep: #d88724;
@@ -6,29 +7,38 @@
   --panel: rgba(7, 12, 42, 0.94);
   --text: #f8f5ff;
 }
+
+/* Configurações gerais */
 * {
   box-sizing: border-box;
 }
+
 html,
 body {
   min-height: 100%;
   margin: 0;
 }
+
+/* Corpo da página */
 body {
   overflow: hidden;
   color: var(--text);
   font-family: "Press Start 2P", cursive;
   background: var(--ink);
 }
+
 button,
 input {
   font: inherit;
 }
 
+/* Tela principal da batalha */
 .battle-screen {
   min-height: 100vh;
   background: var(--battle-background) center / cover no-repeat;
 }
+
+/* Estilo padrão dos painéis */
 .back-button,
 .battle-header,
 .boss-turn,
@@ -41,8 +51,7 @@ input {
     inset 0 0 0 2px var(--gold);
 }
 
-
-
+/* Botão de voltar */
 .back-button {
   position: absolute;
   z-index: 10;
@@ -60,7 +69,7 @@ input {
   border-radius: 7px;
 }
 
-
+/* Cabeçalho da batalha */
 .battle-header {
   position: absolute;
   z-index: 8;
@@ -72,6 +81,8 @@ input {
   border-radius: 20px 0px 20px 0px;
   transform: translateX(-50%);
 }
+
+/* Detalhes decorativos do cabeçalho */
 .battle-header::before,
 .battle-header::after {
   position: absolute;
@@ -87,21 +98,27 @@ input {
   background: #11154a;
   transform: translateY(-50%);
 }
+
 .battle-header::before {
   left: 8px;
 }
+
 .battle-header::after {
   right: 8px;
 }
+
+/* Textos do cabeçalho */
 .battle-header p,
 .battle-header h1,
 .boss-turn p {
   margin: 0;
 }
+
 .battle-header p {
   color: #fff;
   font-size: clamp(0.46rem, 0.75vw, 0.65rem);
 }
+
 .battle-header h1,
 .question {
   margin-top: 0.48rem;
@@ -110,32 +127,43 @@ input {
   text-shadow: 2px 2px 0 #583315;
 }
 
+/* Painel do turno do chefe */
 .boss-turn {
   position: absolute;
   z-index: 9;
-  top: 11.8vh;
+  top: 11vh;
   left: 50%;
-  width: min(440px, 48vw);
-  padding: 0.65rem;
+  width: min(560px, 52vw);
+  min-height: 116px;
+  padding: 1rem 1.4rem;
   text-align: center;
   border-color: #ff7490;
+  border-width: 2px;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 116, 144, 0.22),
+    inset 0 0 24px rgba(214, 53, 112, 0.18),
+    0 0 22px rgba(255, 74, 132, 0.34);
   transform: translateX(-50%);
 }
-.boss-turn-label,
-.boss-answer-text {
-  color: #ffb6c6;
-  font-size: clamp(0.28rem, 0.42vw, 0.38rem);
-}
+
 .boss-turn #boss-question-text {
-  margin-top: 0.45rem;
+  margin-top: 0.7rem;
   color: #fff0b7;
-  font-size: clamp(0.52rem, 0.85vw, 0.72rem);
-}
-.boss-answer-text {
-  min-height: 0.7rem;
-  margin-top: 0.4rem !important;
+  font-size: clamp(0.68rem, 1.08vw, 0.94rem);
+  line-height: 1.65;
+  text-shadow: 2px 2px 0 rgba(48, 16, 49, 0.75);
 }
 
+.boss-answer-text {
+  min-height: 1rem;
+  margin-top: 0.72rem !important;
+  color: var(--text);
+  font-size: .8rem;
+  line-height: 1.5;
+}
+
+/* Configuração dos personagens */
 .combatant {
   position: absolute;
   z-index: 3;
@@ -145,16 +173,22 @@ input {
   align-items: flex-end;
   justify-content: center;
 }
+
+/* Posição do chefe */
 .combatant-boss {
   top: 8vh;
   right: 8vw;
 }
+
+/* Posição do jogador */
 .combatant-player {
   bottom: 20vh;
   left: 4vw;
   width: 34rem;
   height: 25rem;
 }
+
+/* Imagens dos personagens */
 .combatant img {
   position: relative;
   z-index: 2;
@@ -163,23 +197,13 @@ input {
   object-fit: contain;
   filter: drop-shadow(0 13px 6px rgba(0, 0, 0, 0.74));
 }
+
+/* Espelha a imagem do chefe */
 .combatant-boss img {
   transform: scaleX(-1);
 }
-.combatant-tag {
-  position: absolute;
-  z-index: 4;
-  left: 50%;
-  display: flex;
-  gap: 0.6rem;
-  padding: 0.55rem 0.85rem;
-  color: var(--gold);
-  font-size: clamp(0.34rem, 0.58vw, 0.52rem);
-  border: 2px solid var(--gold);
-  border-radius: 8px;
-  background: rgba(5, 10, 38, 0.91);
-  transform: translateX(-50%);
-}
+
+/* Seta da etiqueta */
 .combatant-tag::after {
   position: absolute;
   bottom: -14px;
@@ -189,27 +213,53 @@ input {
   border-top-color: var(--gold);
   transform: translateX(-50%);
 }
+
+/* Etiqueta dos personagens */
+.combatant-tag {
+  position: absolute;
+  z-index: 4;
+  width: max-content;
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.55rem 0.85rem;
+  color: var(--gold);
+  font-size: 0.5rem;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  background: rgba(5, 10, 38, 0.91);
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+  white-space: nowrap;
+}
+
+/* Nível do personagem */
 .combatant-tag small {
   color: #fff;
   font-size: 0.9em;
 }
-.enemy-tag {
-  top: 0;
-}
 
+/* Painel de informações Personagem */
 .combatant-status {
   position: absolute;
   z-index: 5;
-  bottom: -4.9rem;
+  bottom: -5.5rem;
   width: min(100%, 390px);
   padding: 0.72rem 0.85rem;
   border-radius: 18px 5px 18px 5px;
 }
+
+/* Status do chefe */
 .enemy-status {
   bottom: -3.7rem;
-  right: -3vw;
+  right: auto;
+  left: 50%;
   width: min(112%, 450px);
+  transform: translateX(-50%);
 }
+
+
+/* Nome e vida do personagem */
 .status-title {
   display: flex;
   justify-content: space-between;
@@ -217,6 +267,8 @@ input {
   color: #ffffff;
   font-size: clamp(0.34rem, 0.53vw, 0.48rem);
 }
+
+/* Fundo da barra de vida */
 .health-track {
   height: 19px;
   margin-top: 0.57rem;
@@ -226,6 +278,8 @@ input {
   border-radius: 12px;
   background: #050718;
 }
+
+/* Barra de vida do chefe */
 .health-track i {
   display: block;
   width: 100%;
@@ -235,58 +289,97 @@ input {
   box-shadow: 0 0 8px #f22b56;
   transition: width 0.3s;
 }
+
+/* Barra de vida do jogador */
 .player-health i {
   background: linear-gradient(90deg, #09e27b, #43f2ae);
   box-shadow: 0 0 8px #08df80;
 }
+
+/* Energia do jogador */
 .energy-line {
-  margin: 0.62rem 0 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0.62rem 0 0.34rem;
   color: #fff;
   font-size: clamp(0.32rem, 0.48vw, 0.44rem);
 }
-.energy-line::first-letter {
+
+.energy-label {
   color: #5de4ff;
 }
-.energy-line span {
-  float: right;
-  color: #fff;
+
+.energy-track {
+  height: 12px;
+  padding: 2px;
+  overflow: hidden;
+  border: 1px solid #357f9c;
+  border-radius: 8px;
+  background: #050718;
+  box-shadow: inset 0 0 8px rgba(13, 144, 203, 0.28);
 }
 
+.energy-track i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #1599e8, #5de4ff);
+  box-shadow: 0 0 8px #37cfff;
+  transition: width 0.3s;
+}
+
+/* Painel de batalha */
 .battle-panel {
   position: absolute;
   z-index: 6;
   right: 8vw;
-  bottom: 2vh;
+  bottom: 5vh;
   left: 45vw;
 }
+
+/* Cartão do desafio */
 .challenge-card {
   padding: 0.85rem 1rem 0.72rem;
   text-align: center;
   border-color: var(--gold);
-  border-radius: 18px 5px 18px 5px;
+  border-radius: 18px 18px 5px 5px;
 }
+
+/* Texto do turno */
 .turn-label {
   color: #fff;
   font-size: clamp(0.34rem, 0.53vw, 0.48rem);
 }
+
+/* Espaçamento da pergunta */
 .question {
   margin-bottom: 0.72rem;
 }
+
+/* Tamanho dos expoentes */
 .question sup,
 .boss-turn sup {
   font-size: 0.62em;
 }
+
+/* Formulário de resposta */
 .answer-form {
   display: flex;
   justify-content: center;
   gap: 0.55rem;
 }
+
+/* Tamanho dos elementos do formulário */
 .answer-form input,
 .answer-form button {
   height: 47px;
   padding: 0.5rem 0.75rem;
   border-radius: 8px;
 }
+
+/* Campo de resposta */
 .answer-form input {
   width: min(205px, 50%);
   color: #fff;
@@ -295,9 +388,13 @@ input {
   background: #0b0d29;
   outline: none;
 }
+
+/* Campo de resposta selecionado */
 .answer-form input:focus {
   border-color: var(--gold);
 }
+
+/* Botão de lançar */
 .answer-form button {
   min-width: 130px;
   color: #19132b;
@@ -307,22 +404,30 @@ input {
   box-shadow: inset 0 -4px 0 rgba(168, 83, 14, 0.3);
   cursor: pointer;
 }
+
+/* Mensagem da batalha */
 .battle-message {
   min-height: 0.8rem;
   margin: 0.55rem 0 0;
   color: #c5b9db;
-  font-size: clamp(0.26rem, 0.38vw, 0.34rem);
+  font-size: 0.5rem;
 }
+
+/* Cartão de ataques */
 .attacks-card {
   padding: 0.5rem;
-  border-radius: 5px 18px 5px 18px;
+  border-radius: 5px 5px 18px 18px;
 }
+
+/* Lista de ataques */
 .attack-list {
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.5rem;
 }
+
+/* Botões de ataque */
 .attack-button {
   display: grid;
   grid-template-columns: 0px 1fr;
@@ -340,23 +445,32 @@ input {
     border-color 0.15s,
     box-shadow 0.15s;
 }
+
+/* Ícone do ataque */
 .attack-button span {
   grid-row: span 2;
   color: var(--gold);
   font-size: 1.5rem;
   position: relative;
-  left: 1rem;
 }
+
+/* Nome do ataque */
 .attack-button strong {
   color: #ffffff;
   font-size: 0.55rem;
+  left: 50%;
 }
+
+/* Descrição do ataque */
 .attack-button small {
   color: #ffffff;
   font-size: 0.46rem;
   position: relative;
-  left: 1.7rem;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+/* Efeito ao passar o mouse ou selecionar ataque */
 .attack-button:hover:not(:disabled),
 .attack-button.selected {
   border-color: var(--gold);
@@ -364,23 +478,35 @@ input {
   transform: translateY(-2px);
   box-shadow: 0 0 12px rgba(158, 85, 255, 0.45);
 }
+
+/* Elementos desativados */
 .attack-button:disabled,
 .answer-form :disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
+
+/* Ataque bloqueado */
 .attack-button.is-locked {
   filter: grayscale(0.75);
 }
+
+/* Ataque já utilizado */
 .attack-button.is-used {
   border-color: #95616a;
 }
+
+/* Estado de vitória */
 .battle-won .challenge-card {
   border-color: var(--gold);
 }
+
+/* Estado de derrota */
 .battle-lost .challenge-card {
   border-color: #ff617c;
 }
+
+/* Elementos visíveis apenas para leitores de tela */
 .sr-only {
   position: absolute;
   width: 1px;
