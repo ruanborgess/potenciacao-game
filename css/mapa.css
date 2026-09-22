@@ -133,6 +133,44 @@ body {
   color: #fff2a8;
 }
 
+.phase.is-locked {
+  cursor: not-allowed;
+}
+
+.phase.is-locked .phase-name {
+  color: #8d8b9c;
+  filter: grayscale(1) brightness(0.58);
+}
+
+.phase.is-locked .phase-name strong {
+  color: #aaa3a2;
+}
+
+.phase.is-locked .phase-name::after,
+.phase.is-complete .phase-name::after {
+  display: inline-grid;
+  width: 21px;
+  height: 21px;
+  place-items: center;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: #080b18;
+}
+
+.phase.is-locked .phase-name::after {
+  content: "🔒";
+  color: #aaa3a2;
+  font-size: 0.55rem;
+}
+
+.phase.is-complete .phase-name::after {
+  content: "✓";
+  color: #71f8b4;
+  box-shadow: 0 0 9px rgba(81, 241, 164, 0.8);
+}
+
 
 /* =====================================================
    POSIÇÃO DOS NOMES

@@ -1,100 +1,152 @@
-// Parâmetros da batalha
+// ==================================================
+// CONFIGURAÇÃO DA BATALHA
+// ==================================================
+
 const parameters = new URLSearchParams(window.location.search);
 const battlePhase = parameters.get("fase");
 const bossIndex = Number(parameters.get("chefe"));
 
-// Dados da fase e do chefe
 const boss = phaseBosses[battlePhase]?.[bossIndex];
 const phaseSetting = battlePhaseSettings[battlePhase];
 
-// Validação dos dados recebidos
-if (!boss || !phaseSetting) {
+// ==================================================
+// VALIDAÇÃO
+// ==================================================
+
+const bossLiberado =
+  window.Progressao?.chefeLiberado(battlePhase, bossIndex) ?? true;
+
+if (!boss || !phaseSetting || !bossLiberado) {
   window.location.replace("mapa.html");
 } else {
-  // Configurações iniciais
+
+  // ==================================================
+  // DADOS INICIAIS
+  // ==================================================
+
   const initialBossHealth = Number(
     boss.health.replaceAll(".", "").split("/")[0].trim()
   );
 
   const phaseNumber = phaseOrder.indexOf(battlePhase) + 1;
-  const usedAttacksKey = `potenciacao-used-attacks-${battlePhase}`;
 
-  const usedAttacks = new Set(
-    JSON.parse(sessionStorage.getItem(usedAttacksKey) || "[]")
-  );
+  const usedAttacks = new Set();
 
-  // Estado atual da batalha
+  // ==================================================
+  // ESTADO DA BATALHA
+  // ==================================================
+
   const state = {
     bossHealth: initialBossHealth,
     playerHealth: 100,
     energy: 100,
+
     attack: null,
     currentQuestion: null,
+
     lastQuestionId: "",
     lastBossQuestionId: "",
+
     bossSpecialUsed: false,
-    locked: false
+    locked: false,
+
+    correct: 0,
+    wrong: 0,
+    rounds: 0,
+    specials: 0,
   };
 
-  // Elementos da interface
+  // ==================================================
+  // ELEMENTOS DA INTERFACE
+  // ==================================================
+
   const screen = document.querySelector(".battle-screen");
 
   const ui = {
-    phaseName: document.querySelector("#phase-name"),
-    battleTitle: document.querySelector("#battle-title"),
-    backButton: document.querySelector("#back-button"),
-
-    bossName: document.querySelector("#boss-name"),
-    bossStatusName: document.querySelector("#boss-status-name"),
-    bossLevel: document.querySelector("#boss-level"),
-    bossImage: document.querySelector("#boss-image"),
-
+    // Chefe
     bossHealth: document.querySelector("#boss-health-value"),
     bossBar: document.querySelector("#boss-health-bar"),
 
+    // Jogador
     playerHealth: document.querySelector("#player-health-value"),
     playerBar: document.querySelector("#player-health-bar"),
 
+    // Energia
     energy: document.querySelector("#energy-value"),
     energyBar: document.querySelector("#energy-bar"),
 
+    // Ataques
     attacks: document.querySelector("#attack-list"),
 
+    // Pergunta
     question: document.querySelector("#question-text"),
     message: document.querySelector("#battle-message"),
     turn: document.querySelector("#turn-label"),
 
-    form: document.querySelector("#answer-form"),
+    // Resposta
     input: document.querySelector("#answer-input"),
     submit: document.querySelector("#answer-button"),
 
+    // Turno do chefe
     bossTurn: document.querySelector("#boss-turn"),
     bossTurnLabel: document.querySelector("#boss-turn-label"),
     bossQuestion: document.querySelector("#boss-question-text"),
-    bossAnswer: document.querySelector("#boss-answer-text")
+    bossAnswer: document.querySelector("#boss-answer-text"),
+
+    // Resultado
+    result: document.querySelector("#battle-result"),
+    resultKicker: document.querySelector("#result-kicker"),
+    resultTitle: document.querySelector("#result-title"),
+    resultDescription: document.querySelector("#result-description"),
+    resultCorrect: document.querySelector("#result-correct"),
+    resultWrong: document.querySelector("#result-wrong"),
+    resultRounds: document.querySelector("#result-rounds"),
+    resultHealth: document.querySelector("#result-health"),
+    resultEnergy: document.querySelector("#result-energy"),
+    resultSpecials: document.querySelector("#result-specials"),
+    retry: document.querySelector("#result-retry"),
+    resultBack: document.querySelector("#result-back"),
   };
 
-  // Configuração visual da batalha
+  // ==================================================
+  // CONFIGURAÇÃO VISUAL
+  // ==================================================
+
   screen.style.setProperty(
     "--battle-background",
     `url("${phaseSetting.background}")`
   );
 
-  ui.phaseName.textContent = phaseTitles[battlePhase];
-  ui.battleTitle.textContent = `DUELO ${bossIndex + 1}`;
+  document.querySelector("#phase-name").textContent =
+    phaseTitles[battlePhase];
 
-  ui.bossName.textContent = boss.name;
-  ui.bossStatusName.textContent = boss.name;
-  ui.bossLevel.textContent = boss.level;
+  document.querySelector("#battle-title").textContent =
+    `DUELO ${bossIndex + 1}`;
 
-  ui.bossImage.src = boss.image;
-  ui.bossImage.alt = boss.name;
+  document.querySelector("#boss-name").textContent = boss.name;
 
-  ui.backButton.href =
+  document.querySelector("#boss-status-name").textContent =
+    boss.name;
+
+  document.querySelector("#boss-level").textContent =
+    boss.level;
+
+  document.querySelector("#boss-image").src =
+    boss.image;
+
+  document.querySelector("#boss-image").alt =
+    boss.name;
+
+  const backUrl =
     `fase.html?fase=${encodeURIComponent(battlePhase)}`;
 
+  document.querySelector("#back-button").href = backUrl;
+  ui.resultBack.href = backUrl;
 
-  // Escolhe uma pergunta diferente da anterior
+  // ==================================================
+  // PERGUNTAS
+  // ==================================================
+
   function getRandomQuestion(questions, lastId) {
     const options = questions.filter(
       (question) => question.id !== lastId
@@ -102,10 +154,15 @@ if (!boss || !phaseSetting) {
 
     const pool = options.length ? options : questions;
 
-    return pool[Math.floor(Math.random() * pool.length)];
+    return pool[
+      Math.floor(Math.random() * pool.length)
+    ];
   }
 
-  // Atualiza vida e energia na interface
+  // ==================================================
+  // VIDA E ENERGIA
+  // ==================================================
+
   function updateMeters() {
     ui.bossHealth.textContent =
       `${state.bossHealth.toLocaleString("pt-BR")} / ${initialBossHealth.toLocaleString("pt-BR")}`;
@@ -129,7 +186,110 @@ if (!boss || !phaseSetting) {
       `${state.energy}%`;
   }
 
-  // Prepara uma nova pergunta para o jogador
+  // ==================================================
+  // ATAQUES
+  // ==================================================
+
+  function updateAttackButtons() {
+    document
+      .querySelectorAll(".attack-button")
+      .forEach((button) => {
+        button.classList.toggle(
+          "selected",
+          state.attack?.id === button.dataset.attack
+        );
+      });
+  }
+
+  function selectAttack(attack) {
+    if (
+      state.locked ||
+      usedAttacks.has(attack.id) ||
+      state.energy < attack.cost
+    ) {
+      return;
+    }
+
+    state.attack =
+      state.attack?.id === attack.id
+        ? null
+        : attack;
+
+    updateAttackButtons();
+
+    ui.message.textContent = state.attack
+      ? `${attack.name} preparado. A energia só será usada ao lançar.`
+      : "Ataque especial removido. Você usará o ataque normal.";
+  }
+
+  function consumeSelectedAttack() {
+    const attack = state.attack;
+
+    if (!attack) {
+      return null;
+    }
+
+    state.energy -= attack.cost;
+    state.specials += 1;
+
+    usedAttacks.add(attack.id);
+
+    const button = document.querySelector(
+      `[data-attack="${attack.id}"]`
+    );
+
+    button.disabled = true;
+    button.classList.add("is-used");
+
+    button.querySelector("small").textContent =
+      "USADO NESTA BATALHA";
+
+    state.attack = null;
+
+    updateMeters();
+
+    return attack;
+  }
+
+  function renderAttacks() {
+    battleAttacks.forEach((attack, index) => {
+      const button = document.createElement("button");
+
+      const unlocked = index < phaseNumber - 1;
+
+      button.type = "button";
+      button.className = "attack-button";
+      button.dataset.attack = attack.id;
+
+      button.innerHTML = `
+        <span>${attack.icon}</span>
+        <strong>${attack.name}</strong>
+        <small>
+          ${attack.cost} energia · ${attack.damage} dano
+        </small>
+      `;
+
+      if (!unlocked) {
+        button.disabled = true;
+        button.classList.add("is-locked");
+
+        button.querySelector("small").textContent =
+          `DESBLOQUEIA NA FASE ${index + 2}`;
+      }
+
+      button.addEventListener(
+        "click",
+        () => selectAttack(attack)
+      );
+
+      ui.attacks.append(button);
+    });
+  }
+
+  // ==================================================
+  // NOVA PERGUNTA
+  // ==================================================
+
   function showNewQuestion() {
     const question = getRandomQuestion(
       getBattleQuestions(battlePhase),
@@ -139,6 +299,8 @@ if (!boss || !phaseSetting) {
     state.currentQuestion = question;
     state.lastQuestionId = question.id;
     state.attack = null;
+
+    updateAttackButtons();
 
     ui.question.innerHTML = question.text;
 
@@ -152,103 +314,13 @@ if (!boss || !phaseSetting) {
     ui.message.textContent =
       `Ataque normal: ${phaseSetting.normalDamage} de dano. Ou escolha um especial.`;
 
-    document
-      .querySelectorAll(".attack-button")
-      .forEach((button) => {
-        button.classList.remove("selected");
-      });
-
     ui.input.focus();
   }
 
-  // Seleciona um ataque especial
-  function useAttack(attack) {
-    if (
-      state.locked ||
-      usedAttacks.has(attack.id) ||
-      state.energy < attack.cost
-    ) {
-      return;
-    }
+  // ==================================================
+  // FINAL DA BATALHA
+  // ==================================================
 
-    state.attack = attack;
-    state.energy -= attack.cost;
-
-    usedAttacks.add(attack.id);
-
-    sessionStorage.setItem(
-      usedAttacksKey,
-      JSON.stringify([...usedAttacks])
-    );
-
-    updateMeters();
-
-    document
-      .querySelectorAll(".attack-button")
-      .forEach((button) => {
-        button.classList.toggle(
-          "selected",
-          button.dataset.attack === attack.id
-        );
-      });
-
-    const button = document.querySelector(
-      `[data-attack="${attack.id}"]`
-    );
-
-    button.disabled = true;
-    button.classList.add("is-used");
-
-    button.querySelector("small").textContent =
-      "USADO NESTA FASE";
-
-    ui.message.textContent =
-      `${attack.name} preparado: ${attack.cost} de energia consumida e ${attack.damage} de dano se acertar.`;
-  }
-
-  // Cria os botões de ataque
-  function renderAttacks() {
-    battleAttacks.forEach((attack, index) => {
-      const unlocked = index < phaseNumber - 1;
-      const used = usedAttacks.has(attack.id);
-
-      const button = document.createElement("button");
-
-      button.type = "button";
-      button.className = "attack-button";
-      button.dataset.attack = attack.id;
-
-      button.innerHTML = `
-        <span>${attack.icon}</span>
-        <strong>${attack.name}</strong>
-        <small>${attack.cost} energia · ${attack.damage} dano</small>
-      `;
-
-      if (!unlocked) {
-        button.disabled = true;
-        button.classList.add("is-locked");
-
-        button.querySelector("small").textContent =
-          `DESBLOQUEIA NA FASE ${index + 2}`;
-      }
-
-      if (used) {
-        button.disabled = true;
-        button.classList.add("is-used");
-
-        button.querySelector("small").textContent =
-          "USADO NESTA FASE";
-      }
-
-      button.addEventListener("click", () => {
-        useAttack(attack);
-      });
-
-      ui.attacks.append(button);
-    });
-  }
-
-  // Finaliza a batalha
   function endBattle(won) {
     state.locked = true;
 
@@ -261,27 +333,54 @@ if (!boss || !phaseSetting) {
         button.disabled = true;
       });
 
-    ui.turn.textContent = won
-      ? "VITÓRIA!"
-      : "VOCÊ FOI DERROTADO";
-
-    ui.message.textContent = won
-      ? `Você derrotou ${boss.name}!`
-      : "A energia se desfez. Tente novamente.";
-
     screen.classList.add(
       won ? "battle-won" : "battle-lost"
     );
+
+    if (won) {
+      window.Progressao?.registrarVitoria(
+        battlePhase,
+        bossIndex
+      );
+    }
+
+    ui.resultKicker.textContent =
+      won ? "CHEFE DERROTADO" : "A BATALHA TERMINOU";
+
+    ui.resultTitle.textContent =
+      won ? "VITÓRIA!" : "DERROTA";
+
+    ui.resultDescription.textContent = won
+      ? `Você derrotou ${boss.name} e abriu caminho na jornada.`
+      : `${boss.name} venceu desta vez. Revise as potências e tente novamente.`;
+
+    ui.resultCorrect.textContent = state.correct;
+    ui.resultWrong.textContent = state.wrong;
+    ui.resultRounds.textContent = state.rounds;
+
+    ui.resultHealth.textContent =
+      `${state.playerHealth} / 100`;
+
+    ui.resultEnergy.textContent =
+      `${state.energy} / 100`;
+
+    ui.resultSpecials.textContent =
+      state.specials;
+
+    ui.retry.hidden = won;
+    ui.result.hidden = false;
   }
 
-  // Cria uma pausa durante as ações
-  function wait(milliseconds) {
-    return new Promise((resolve) => {
+  // ==================================================
+  // TURNO DO CHEFE
+  // ==================================================
+
+  const wait = (milliseconds) =>
+    new Promise((resolve) => {
       window.setTimeout(resolve, milliseconds);
     });
-  }
 
-  // Executa o turno do chefe
+
   async function bossTurn() {
     const question = getRandomQuestion(
       getBossQuestions(battlePhase),
@@ -289,9 +388,8 @@ if (!boss || !phaseSetting) {
     );
 
     const special =
-      battlePhase !== "vila" &&
       !state.bossSpecialUsed &&
-      state.bossHealth / initialBossHealth <= 0.3;
+      state.bossHealth / initialBossHealth <= 0.1;
 
     const damage = special
       ? phaseSetting.bossDamage * 3
@@ -314,15 +412,15 @@ if (!boss || !phaseSetting) {
 
     await wait(2000);
 
-    if (state.locked) return;
+    if (state.locked) {
+      return;
+    }
 
     ui.bossAnswer.innerHTML =
-      `Resposta: <b>${question.answer}</b> <br><br> Você sofreu ${damage} de dano!`;
+      `Resposta: <b>${question.answer}</b><br><br> Você sofreu ${damage} de dano!`;
 
-    state.playerHealth = Math.max(
-      0,
-      state.playerHealth - damage
-    );
+    state.playerHealth =
+      Math.max(0, state.playerHealth - damage);
 
     updateMeters();
 
@@ -337,57 +435,72 @@ if (!boss || !phaseSetting) {
     showNewQuestion();
   }
 
-  // Verifica a resposta do jogador
-  ui.form.addEventListener("submit", async (event) => {
-    event.preventDefault();
 
-    if (
-      state.locked ||
-      !state.currentQuestion
-    ) {
-      return;
-    }
+  // ==================================================
+  // RESPOSTA DO JOGADOR
+  // ==================================================
 
-    ui.input.disabled = true;
-    ui.submit.disabled = true;
+  document
+    .querySelector("#answer-form")
+    .addEventListener("submit", async (event) => {
 
-    const attack = state.attack;
+      event.preventDefault();
 
-    const correct =
-      Number(ui.input.value) ===
-      state.currentQuestion.answer;
-
-    // Resposta correta
-    if (correct) {
-      const damage = attack
-        ? attack.damage
-        : phaseSetting.normalDamage;
-
-      state.bossHealth = Math.max(
-        0,
-        state.bossHealth - damage
-      );
-
-      updateMeters();
-
-      ui.message.textContent =
-        "Resposta certa! Sua magia acertou o chefe.";
-
-      if (state.bossHealth === 0) {
-        return endBattle(true);
+      if (
+        state.locked ||
+        !state.currentQuestion
+      ) {
+        return;
       }
-    }
 
-    // Resposta incorreta
-    else {
-      ui.message.textContent =
-        `Resposta incorreta. Era ${state.currentQuestion.answer}. O chefe contra-ataca!`;
-    }
+      ui.input.disabled = true;
+      ui.submit.disabled = true;
 
-    await bossTurn();
-  });
+      const attack = consumeSelectedAttack();
 
-  // Inicializa a batalha
+      const correct =
+        Number(ui.input.value) ===
+        state.currentQuestion.answer;
+
+      state.rounds += 1;
+
+      if (correct) {
+        state.correct += 1;
+
+        const damage = attack
+          ? attack.damage
+          : phaseSetting.normalDamage;
+
+        state.bossHealth =
+          Math.max(0, state.bossHealth - damage);
+
+        updateMeters();
+
+        if (state.bossHealth === 0) {
+          return endBattle(true);
+        }
+      } else {
+        state.wrong += 1;
+      }
+
+      await bossTurn();
+    });
+
+
+  // ==================================================
+  // BOTÃO DE TENTAR NOVAMENTE
+  // ==================================================
+
+  ui.retry.addEventListener(
+    "click",
+    () => window.location.reload()
+  );
+
+
+  // ==================================================
+  // INICIALIZAÇÃO
+  // ==================================================
+
   renderAttacks();
   updateMeters();
   showNewQuestion();

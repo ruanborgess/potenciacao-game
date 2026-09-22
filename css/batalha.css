@@ -507,6 +507,91 @@ input {
 }
 
 /* Elementos visíveis apenas para leitores de tela */
+.battle-result {
+  position: fixed;
+  z-index: 30;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(2, 4, 21, 0.78);
+  backdrop-filter: blur(5px);
+}
+
+.battle-result[hidden] {
+  display: none;
+}
+
+.result-card {
+  width: min(660px, 94vw);
+  padding: clamp(1.3rem, 3vw, 2.25rem);
+  text-align: center;
+  border: 3px solid var(--gold);
+  border-radius: 18px 4px;
+  background: linear-gradient(145deg, #26154d, #090d31);
+  box-shadow: 0 0 0 5px rgba(111, 69, 190, 0.46), 0 20px 50px rgba(0, 0, 0, 0.6);
+}
+
+.battle-lost .result-card {
+  border-color: #ff718d;
+  background: linear-gradient(145deg, #481630, #150b2d);
+}
+
+.result-kicker { margin: 0; color: #d9c8ff; font-size: clamp(0.42rem, 0.7vw, 0.58rem); }
+
+.result-card h2 {
+  margin: 0.85rem 0;
+  color: var(--gold);
+  font-size: clamp(1.25rem, 3vw, 2rem);
+  text-shadow: 3px 3px #37200a;
+}
+
+.battle-lost .result-card h2 { color: #ff92aa; text-shadow: 3px 3px #481124; }
+
+.result-description {
+  margin: 0 auto 1.4rem;
+  color: #f2edff;
+  font-size: clamp(0.48rem, 0.8vw, 0.65rem);
+  line-height: 1.8;
+}
+
+.result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+
+.result-stats p {
+  display: grid;
+  gap: 0.5rem;
+  min-height: 76px;
+  margin: 0;
+  padding: 0.7rem 0.4rem;
+  border: 1px solid #7659a5;
+  border-radius: 8px;
+  background: rgba(4, 7, 29, 0.72);
+}
+
+.result-stats span { color: #cbbce7; font-size: clamp(0.32rem, 0.52vw, 0.42rem); line-height: 1.4; }
+.result-stats strong { color: #fff; font-size: clamp(0.5rem, 0.85vw, 0.68rem); }
+
+.result-actions { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1.4rem; }
+
+.result-actions button,
+.result-actions a {
+  padding: 0.85rem 1rem;
+  color: #16102c;
+  font-size: clamp(0.4rem, 0.65vw, 0.52rem);
+  text-decoration: none;
+  border: 2px solid #ffe27d;
+  border-radius: 7px;
+  background: linear-gradient(#ffe17a, #f4a936);
+  cursor: pointer;
+}
+
+.result-actions a { color: #fff; border-color: #a67af1; background: linear-gradient(#5434a2, #241653); }
+
+@media (max-width: 580px) {
+  .result-stats { grid-template-columns: repeat(2, 1fr); }
+  .result-actions { flex-direction: column; }
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

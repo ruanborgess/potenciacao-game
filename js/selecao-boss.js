@@ -140,8 +140,9 @@ const phaseTitles = {
 };
 
 const phase = new URLSearchParams(window.location.search).get("fase");
+const isSelectionPage = document.querySelector(".boss-selection");
 
-if (phase && phaseBosses[phase]) {
+if (isSelectionPage && phase && phaseBosses[phase] && (window.Progressao?.faseLiberada(phase) ?? true)) {
 document.body.dataset.phase = phase;
 const bosses = phaseBosses[phase];
 
@@ -164,15 +165,24 @@ function stars(difficulty) {
 }
 
 function selectBoss(index) {
+  if (!window.Progressao?.chefeLiberado(phase, index)) return;
   selectedBossIndex = index;
   const boss = bosses[index];
   
   cards.forEach((card, cardIndex) => {
     const cardBoss = bosses[cardIndex];
     const selected = cardIndex === index;
+    const unlocked = window.Progressao?.chefeLiberado(phase, cardIndex) ?? true;
+    const completed = window.Progressao?.chefeVencido(phase, cardIndex) ?? false;
 
     card.classList.toggle("is-selected", selected);
     card.setAttribute("aria-pressed", selected);
+    card.disabled = !unlocked;
+    card.classList.toggle("is-locked", !unlocked);
+    card.classList.toggle("is-complete", completed);
+    card.setAttribute("aria-label", unlocked
+      ? `${cardBoss.name}${completed ? ", chefe derrotado" : ""}`
+      : `${cardBoss.name}, chefe bloqueado`);
 
     card.querySelector(".boss-card-copy strong").textContent =
       cardBoss.name;
@@ -192,7 +202,7 @@ function selectBoss(index) {
     card.querySelector("em")?.remove();
 
     if (selected) {
-      card.insertAdjacentHTML("beforeend", "<em>ATUAL</em>");
+      card.insertAdjacentHTML("beforeend", completed ? "<em>CONCLUÍDO</em>" : "<em>ATUAL</em>");
     }
 
     card.querySelector(".boss-card-copy").previousElementSibling.querySelector("img").src =
@@ -214,10 +224,11 @@ cards.forEach((card, index) => {
 });
 
 elements.fight.addEventListener("click", () => {
+  if (!(window.Progressao?.chefeLiberado(phase, selectedBossIndex) ?? true)) return;
   window.location.href = `batalha.html?fase=${encodeURIComponent(phase)}&chefe=${selectedBossIndex}`;
 });
 
 selectBoss(0);
-} else {
+} else if (isSelectionPage) {
   window.location.replace("mapa.html");
 }

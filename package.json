@@ -1,0 +1,23 @@
+{
+  "name": "potenciacao-game",
+  "version": "1.0.0",
+  "description": "Jogo de Potenciação",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruanborgess/potenciacao-game.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ruanborgess/potenciacao-game/issues"
+  },
+  "homepage": "https://github.com/ruanborgess/potenciacao-game#readme",
+  "devDependencies": {
+    "vite": "^8.3.0"
+  }
+}

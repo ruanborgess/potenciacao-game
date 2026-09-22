@@ -239,10 +239,22 @@ function updateCurrentPhase() {
 
 phaseElements.forEach((phaseElement) => {
 
-  phaseElement.addEventListener("click", () => {
+  const selectedPhase = phaseElement.dataset.phase;
+  const unlocked = window.Progressao?.faseLiberada(selectedPhase) ?? true;
+  const completed = window.Progressao?.faseConcluida(selectedPhase) ?? false;
+  phaseElement.classList.toggle("is-locked", !unlocked);
+  phaseElement.classList.toggle("is-complete", completed);
+  phaseElement.setAttribute("aria-disabled", String(!unlocked));
+  phaseElement.setAttribute("aria-label", !unlocked
+    ? `Fase ${selectedPhase}, bloqueada`
+    : `Fase ${selectedPhase}${completed ? ", concluída" : ""}`);
 
-    const selectedPhase =
-      phaseElement.dataset.phase;
+  phaseElement.addEventListener("click", (event) => {
+
+    if (!(window.Progressao?.faseLiberada(selectedPhase) ?? true)) {
+      event.preventDefault();
+      return;
+    }
 
 
     /*

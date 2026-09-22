@@ -99,9 +99,30 @@
           <div id="attack-list" class="attack-list"></div>
         </section>
       </section>
+
+      <section id="battle-result" class="battle-result" aria-live="assertive" hidden>
+        <div class="result-card">
+          <p id="result-kicker" class="result-kicker">RESULTADO DA BATALHA</p>
+          <h2 id="result-title">VITÓRIA!</h2>
+          <p id="result-description" class="result-description"></p>
+          <div class="result-stats">
+            <p><span>ACERTOS</span><strong id="result-correct">0</strong></p>
+            <p><span>ERROS</span><strong id="result-wrong">0</strong></p>
+            <p><span>RODADAS</span><strong id="result-rounds">0</strong></p>
+            <p><span>VIDA RESTANTE</span><strong id="result-health">0 / 100</strong></p>
+            <p><span>ENERGIA RESTANTE</span><strong id="result-energy">0 / 100</strong></p>
+            <p><span>ESPECIAIS USADOS</span><strong id="result-specials">0</strong></p>
+          </div>
+          <div class="result-actions">
+            <button id="result-retry" type="button">TENTAR NOVAMENTE</button>
+            <a id="result-back" href="fase.html">VOLTAR À FASE</a>
+          </div>
+        </div>
+      </section>
     </main>
     <script src="../js/selecao-boss.js"></script>
     <script src="../js/conteudo-batalha.js"></script>
+    <script src="../js/progressao.js"></script>
     <script src="../js/batalha.js"></script>
   </body>
 </html>

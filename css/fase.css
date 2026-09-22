@@ -223,6 +223,56 @@ a {
     inset 0 0 22px rgba(255, 188, 54, 0.08);
 }
 
+.boss-card.is-locked {
+  color: #8b86a0;
+  cursor: not-allowed;
+  filter: grayscale(0.8) brightness(0.62);
+}
+
+.boss-card.is-locked:hover {
+  border-color: #48427d;
+  box-shadow: none;
+  transform: none;
+}
+
+.boss-card.is-locked .boss-number::after,
+.boss-card.is-complete .boss-number::after {
+  position: absolute;
+  right: -9px;
+  bottom: -7px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  font-size: 0.72rem;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: #11102f;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.boss-card.is-locked .boss-number::after {
+  content: "🔒";
+  color: #a39aaa;
+  font-size: 0.58rem;
+}
+
+.boss-card.is-complete .boss-number::after {
+  content: "✓";
+  color: #5df2a4;
+  font-size: 0.8rem;
+}
+
+.boss-card.is-complete:not(.is-selected) {
+  border-color: #4cbe84;
+  box-shadow: inset 0 0 18px rgba(53, 222, 133, 0.12);
+}
+
+.boss-card.is-complete em {
+  color: #72f7b1;
+  border-color: #4cbe84;
+}
+
 .boss-card.is-selected::after {
   background: var(--gold);
   box-shadow: 0 0 10px var(--gold);
