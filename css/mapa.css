@@ -323,205 +323,42 @@ body {
   }
 }
 
-
-/* =====================================================
-   ABERTURA DA HISTÓRIA
-   ===================================================== */
-
-.story-intro {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding: clamp(1.5rem, 6vw, 7rem);
-  overflow: hidden;
-  background: linear-gradient(90deg, rgba(2, 7, 29, 0.18), rgba(2, 7, 29, 0.7) 52%, rgba(2, 7, 29, 0.9));
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 480ms ease, visibility 480ms ease;
-  visibility: hidden;
-}
-
-.story-active .story-intro {
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
-}
-
-.story-character {
-  position: absolute;
-  bottom: clamp(-22rem, -19vw, -10rem);
-  left: clamp(1rem, 9vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
-  height: auto;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72)) drop-shadow(0 0 28px rgba(69, 116, 255, 0.38));
-  animation: heroEntrance 720ms cubic-bezier(.18, .84, .3, 1) both;
-}
-
-/* Ajuste individualmente posição e tamanho dos personagens da história. */
-.story-character.story-character--scene-1 {
-  bottom: clamp(-22rem, -16vw, -10rem);
-  left: clamp(1rem, 9vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
-}
-
-.story-character.story-character--scene-2 {
-  bottom: clamp(-22rem, -12vw, -10rem);
-  left: clamp(1rem, 8vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
-}
-
-.story-character.story-character--scene-3 {
-  bottom: clamp(-14rem, -12vw, -6rem);
-  left: clamp(1rem, 4vw, 10rem);
-  width: clamp(460px, 52vw, 780px);
-}
-
-.story-character.story-character--scene-4 {
-  bottom: clamp(-22rem, -18vw, -10rem);
-  left: clamp(1rem, 9vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
-}
-
-.story-dialogue {
+/* Selos de progress�o: cadeado e conclus�o ficam ancorados ao nome da fase. */
+.phase-name {
   position: relative;
-  z-index: 1;
-  width: min(610px, 49vw);
-  padding: clamp(1.4rem, 3vw, 2.6rem);
-  border: 3px solid rgba(140, 174, 255, 0.78);
-  border-radius: 18px;
-  background: linear-gradient(145deg, rgba(16, 27, 66, 0.94), rgba(7, 12, 35, 0.94));
-  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.52), 0 0 36px rgba(101, 217, 255, 0.18);
-  animation: dialogueEntrance 620ms 180ms ease both;
 }
 
-.story-kicker {
-  margin: 0 0 1.25rem;
-  color: var(--neon-gold);
-  font-size: clamp(0.52rem, 1vw, 0.7rem);
-  line-height: 1.8;
-  text-transform: uppercase;
+.phase.is-locked .phase-name {
+  color: #c2c1cc;
+  filter: grayscale(.72) brightness(.78);
 }
 
-.story-dialogue h1 {
+.phase.is-locked .phase-name::after,
+.phase.is-complete .phase-name::after {
+  position: absolute;
+  top: -13px;
+  right: -17px;
+  display: grid;
+  width: 27px;
+  height: 27px;
   margin: 0;
-  color: #fff6bf;
-  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
-  line-height: 1.65;
+  place-items: center;
+  border: 2px solid currentColor;
+  border-radius: 9px;
+  background-color: #10152e;
+  box-shadow: 0 3px 0 #060916, 0 0 12px currentColor;
 }
 
-.story-dialogue p:not(.story-kicker) {
-  margin: 1.35rem 0 0;
-  color: #f5f6ff;
-  font-size: clamp(0.56rem, 1.1vw, 0.76rem);
-  line-height: 2;
+.phase.is-locked .phase-name::after {
+  content: "";
+  color: #e0c779;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0c779' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='10' width='16' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 15px;
 }
 
-.story-start-button {
-  margin-top: 1.7rem;
-  padding: 0.95rem 1.2rem;
-  border: 3px solid rgba(255, 219, 118, 0.92);
-  border-radius: 11px;
-  background: linear-gradient(180deg, #405bd2, #182875);
-  box-shadow: 0 6px 0 #10184c, 0 0 18px rgba(248, 216, 107, 0.24);
-  color: #fff;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: clamp(0.55rem, 1vw, 0.72rem);
-  line-height: 1.5;
-  text-transform: uppercase;
-  transition: transform 180ms ease, filter 180ms ease;
-}
-
-.story-start-button:hover,
-.story-start-button:focus-visible {
-  filter: brightness(1.16);
-  outline: none;
-  transform: translateY(-2px);
-}
-
-@keyframes heroEntrance {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes dialogueEntrance {
-  from { opacity: 0; transform: translateY(1.5rem); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 780px) {
-  .story-intro {
-    align-items: flex-start;
-    justify-content: center;
-    padding: 1.1rem;
-    background: linear-gradient(180deg, rgba(2, 7, 29, 0.62), rgba(2, 7, 29, 0.32) 45%, rgba(2, 7, 29, 0.82));
-  }
-
-  .story-character-stage {
-    width: 100%;
-  }
-
-  .story-character {
-    bottom: -7.4rem;
-    left: 50%;
-    width: min(105vw, 455px);
-    transform: translateX(-50%);
-  }
-
-  /* Versões mobile: altere cada cena sem afetar as outras. */
-  .story-character.story-character--scene-1 {
-    bottom: -7.4rem;
-    left: 50%;
-    width: min(105vw, 455px);
-  }
-
-  .story-character.story-character--scene-2 {
-    bottom: -7.4rem;
-    left: 50%;
-    width: min(105vw, 455px);
-  }
-
-  .story-character.story-character--scene-3 {
-    bottom: -4rem;
-    left: 50%;
-    width: min(122vw, 510px);
-  }
-
-  .story-character.story-character--scene-4 {
-    bottom: -7.4rem;
-    left: 50%;
-    width: min(105vw, 455px);
-  }
-
-  .story-dialogue {
-    width: min(100%, 540px);
-    padding: 1.25rem;
-  }
-
-  .story-kicker {
-    margin-bottom: 0.9rem;
-  }
-
-  .story-dialogue p:not(.story-kicker) {
-    margin-top: 1rem;
-    line-height: 1.8;
-  }
-
-  .story-start-button {
-    width: 100%;
-    margin-top: 1.2rem;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .story-intro,
-  .story-character,
-  .story-dialogue {
-    animation: none;
-    transition: none;
-  }
+.phase.is-complete .phase-name::after {
+  border-radius: 50%;
+  box-shadow: 0 3px 0 #063021, 0 0 12px rgba(81, 241, 164, .8);
 }

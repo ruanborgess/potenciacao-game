@@ -1,7 +1,7 @@
 /*
   Controle de desbloqueios. Para testar todas as fases durante o desenvolvimento
 */
-const PROGRESSAO_ATIVA = false;
+const PROGRESSAO_ATIVA = true; // true para ativar, false para desativar
 
 const Progressao = (() => {
   const chave = "potenciacao-progresso";

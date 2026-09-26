@@ -47,8 +47,7 @@ input {
 .attacks-card {
   border: 1px solid var(--violet);
   background: var(--panel);
-  box-shadow:
-    inset 0 0 0 2px var(--gold);
+  box-shadow: inset 0 0 0 2px var(--gold);
 }
 
 /* Botão de voltar */
@@ -159,8 +158,53 @@ input {
   min-height: 1rem;
   margin-top: 0.72rem !important;
   color: var(--text);
-  font-size: .8rem;
+  font-size: 0.8rem;
   line-height: 1.5;
+}
+
+.boss-turn.is-feedback {
+  border-color: #ffd76a;
+  background: linear-gradient(
+    145deg,
+    rgba(36, 28, 71, 0.97),
+    rgba(8, 13, 43, 0.97)
+  );
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 215, 106, 0.2),
+    0 0 30px rgba(255, 201, 72, 0.36);
+}
+
+.boss-turn.is-feedback .boss-answer-text {
+  color: #fff;
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+}
+.boss-turn.is-feedback .boss-answer-text strong {
+  color: #73f2ae;
+  font-size: 1.25em;
+}
+.boss-turn.is-feedback:has(.boss-answer-text strong:first-child) {
+  animation: panel-arrive 0.3s ease-out;
+}
+.boss-turn.is-special {
+  border-color: #ff4e79;
+  background: linear-gradient(
+    145deg,
+    rgba(92, 16, 57, 0.97),
+    rgba(24, 7, 42, 0.97)
+  );
+}
+.boss-turn.is-special #boss-turn-label {
+  color: #ffb2c6;
+}
+@keyframes panel-arrive {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
 }
 
 /* Configuração dos personagens */
@@ -257,7 +301,6 @@ input {
   width: min(112%, 450px);
   transform: translateX(-50%);
 }
-
 
 /* Nome e vida do personagem */
 .status-title {
@@ -496,6 +539,16 @@ input {
   border-color: #95616a;
 }
 
+.attack-button.is-low-energy {
+  filter: blur(1px) saturate(.55);
+  opacity: .62;
+}
+
+.attack-button.is-low-energy:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 /* Estado de vitória */
 .battle-won .challenge-card {
   border-color: var(--gold);
@@ -523,13 +576,67 @@ input {
 }
 
 .result-card {
+  position: relative;
+  overflow: hidden;
   width: min(660px, 94vw);
   padding: clamp(1.3rem, 3vw, 2.25rem);
   text-align: center;
   border: 3px solid var(--gold);
   border-radius: 18px 4px;
-  background: linear-gradient(145deg, #26154d, #090d31);
-  box-shadow: 0 0 0 5px rgba(111, 69, 190, 0.46), 0 20px 50px rgba(0, 0, 0, 0.6);
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(135, 92, 255, 0.42),
+      transparent 55%
+    ),
+    linear-gradient(145deg, #26154d, #090d31);
+  box-shadow:
+    0 0 0 5px rgba(111, 69, 190, 0.3),
+    0 24px 70px rgba(0, 0, 0, 0.72);
+  animation: result-enter 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.result-portrait-wrap {
+  position: relative;
+  width: 118px;
+  height: 118px;
+  margin: -1rem auto 0.8rem;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: radial-gradient(circle, #53378a, #10102f 70%);
+  box-shadow: 0 0 28px rgba(255, 201, 72, 0.3);
+}
+.result-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 7px 6px #08071a);
+}
+.result-portrait-wrap span {
+  position: absolute;
+  right: -7px;
+  bottom: -4px;
+  color: var(--gold);
+  font-size: 1.7rem;
+  text-shadow: 0 0 12px var(--gold);
+}
+.battle-won .result-portrait-wrap {
+  box-shadow: 0 0 34px rgba(255, 201, 72, 0.55);
+}
+.battle-lost .result-portrait-wrap {
+  border-color: #ff718d;
+  filter: saturate(0.7);
+  box-shadow: 0 0 30px rgba(255, 75, 116, 0.45);
+}
+@keyframes result-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .battle-lost .result-card {
@@ -537,7 +644,11 @@ input {
   background: linear-gradient(145deg, #481630, #150b2d);
 }
 
-.result-kicker { margin: 0; color: #d9c8ff; font-size: clamp(0.42rem, 0.7vw, 0.58rem); }
+.result-kicker {
+  margin: 0;
+  color: #d9c8ff;
+  font-size: clamp(0.42rem, 0.7vw, 0.58rem);
+}
 
 .result-card h2 {
   margin: 0.85rem 0;
@@ -546,7 +657,10 @@ input {
   text-shadow: 3px 3px #37200a;
 }
 
-.battle-lost .result-card h2 { color: #ff92aa; text-shadow: 3px 3px #481124; }
+.battle-lost .result-card h2 {
+  color: #ff92aa;
+  text-shadow: 3px 3px #481124;
+}
 
 .result-description {
   margin: 0 auto 1.4rem;
@@ -555,7 +669,11 @@ input {
   line-height: 1.8;
 }
 
-.result-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.65rem; }
+.result-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
 
 .result-stats p {
   display: grid;
@@ -563,15 +681,32 @@ input {
   min-height: 76px;
   margin: 0;
   padding: 0.7rem 0.4rem;
-  border: 1px solid #7659a5;
-  border-radius: 8px;
-  background: rgba(4, 7, 29, 0.72);
+  border: 1px solid rgba(178, 146, 255, 0.42);
+  border-radius: 12px;
+  background: linear-gradient(
+    145deg,
+    rgba(36, 28, 75, 0.8),
+    rgba(4, 7, 29, 0.84)
+  );
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
 }
 
-.result-stats span { color: #cbbce7; font-size: clamp(0.32rem, 0.52vw, 0.42rem); line-height: 1.4; }
-.result-stats strong { color: #fff; font-size: clamp(0.5rem, 0.85vw, 0.68rem); }
+.result-stats span {
+  color: #cbbce7;
+  font-size: clamp(0.32rem, 0.52vw, 0.42rem);
+  line-height: 1.4;
+}
+.result-stats strong {
+  color: #fff;
+  font-size: clamp(0.5rem, 0.85vw, 0.68rem);
+}
 
-.result-actions { display: flex; justify-content: center; gap: 0.8rem; margin-top: 1.4rem; }
+.result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 1.4rem;
+}
 
 .result-actions button,
 .result-actions a {
@@ -585,11 +720,34 @@ input {
   cursor: pointer;
 }
 
-.result-actions a { color: #fff; border-color: #a67af1; background: linear-gradient(#5434a2, #241653); }
+.result-actions a {
+  color: #fff;
+  border-color: #a67af1;
+  background: linear-gradient(#5434a2, #241653);
+}
 
 @media (max-width: 580px) {
-  .result-stats { grid-template-columns: repeat(2, 1fr); }
-  .result-actions { flex-direction: column; }
+  body {
+    overflow: auto;
+  }
+  .boss-turn {
+    top: 10vh;
+    width: min(92vw, 560px);
+  }
+  .result-card {
+    max-height: 94vh;
+    overflow-y: auto;
+  }
+  .result-portrait-wrap {
+    width: 86px;
+    height: 86px;
+  }
+  .result-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .result-actions {
+    flex-direction: column;
+  }
 }
 
 .sr-only {

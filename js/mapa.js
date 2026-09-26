@@ -42,12 +42,7 @@ const characterOffsets = {
 
 const character = document.getElementById("mapCharacter");
 
-const storyStartButton = document.getElementById("story-start-button");
 
-const storyCharacter = document.getElementById("story-character");
-const storyStep = document.getElementById("story-step");
-const storyTitle = document.getElementById("story-title");
-const storyText = document.getElementById("story-text");
 
 const phaseElements = document.querySelectorAll(".phase");
 
@@ -62,38 +57,7 @@ const phaseElements = document.querySelectorAll(".phase");
 let currentPhase =
   localStorage.getItem("batalhaPotenciasFase") || "vila";
 
-const showStory =
-  sessionStorage.getItem("batalhaPotenciasMostrarHistoria") === "true";
 
-const storyScenes = [
-  {
-    image: "../assets/images/personagem.png",
-    title: "O Reino Exponencial precisa de você.",
-    text: "Em uma noite sem estrelas, a luz que protegia o reino desapareceu. Sem ela, os cálculos perderam a força e as vilas começaram a se apagar."
-  },
-  {
-    image: "../assets/images/boss.png",
-    title: "Potencius tomou o castelo.",
-    text: "No alto da montanha, o feiticeiro Potencius roubou a energia das potências. Ele espalhou mini-chefões pelo caminho para impedir qualquer herói de chegar até ele."
-  },
-  {
-    image: "../assets/images/personagem_bravo.png",
-    title: "Sua jornada começa agora.",
-    text: "Aprenda a usar base e expoente como aliados. A cada desafio vencido, você recuperará uma parte da energia do reino e ficará mais perto do castelo."
-  },
-  {
-    image: "../assets/images/boss_bravo.png",
-    title: "O desafio final espera por você.",
-    text: "Não deixe o medo se multiplicar. Vença os guardiões, domine as potências e enfrente Potencius para devolver a luz ao Reino Exponencial."
-  }
-];
-
-let storyIndex = 0;
-
-if (showStory) {
-  document.body.classList.add("story-active");
-  sessionStorage.removeItem("batalhaPotenciasMostrarHistoria");
-}
 
 /* =====================================================
    CALCULA A POSIÇÃO REAL DA IMAGEM
@@ -295,30 +259,3 @@ updateCurrentPhase();
 /* =====================================================
    FECHA A INTRODUÇÃO E LIBERA O MAPA
    ===================================================== */
-
-function renderStoryScene() {
-  const scene = storyScenes[storyIndex];
-  const isLastScene = storyIndex === storyScenes.length - 1;
-
-  storyCharacter.src = scene.image;
-  storyCharacter.className = `story-character story-character--scene-${storyIndex + 1}`;
-  storyStep.textContent = `História ${storyIndex + 1} de ${storyScenes.length}`;
-  storyTitle.textContent = scene.title;
-  storyText.textContent = scene.text;
-  storyStartButton.textContent = isLastScene ? "Iniciar aventura" : "Próximo";
-}
-
-if (storyStartButton) {
-  renderStoryScene();
-
-  storyStartButton.addEventListener("click", () => {
-    if (storyIndex < storyScenes.length - 1) {
-      storyIndex += 1;
-      renderStoryScene();
-      return;
-    }
-
-    document.body.classList.remove("story-active");
-    storyStartButton.blur();
-  });
-}

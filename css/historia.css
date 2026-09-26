@@ -1,0 +1,817 @@
+/* =====================================================
+   VARIÁVEIS
+===================================================== */
+
+:root {
+  --neon-blue: #65d9ff;
+  --neon-violet: #c794ff;
+  --neon-gold: #f8d86b;
+
+  --panel: rgba(12, 18, 38, 0.72);
+  --panel-border: rgba(140, 174, 255, 0.7);
+
+  font-family: "Press Start 2P", cursive;
+
+  color: #f5f6ff;
+}
+
+/* =====================================================
+   RESET
+   ===================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(180deg, rgba(3, 8, 29, 0.35)),
+    url("../assets/images/fundo_mapa.png") center / cover fixed;
+
+  color: #f5f6ff;
+
+  font-family: "Press Start 2P", cursive;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+/* =====================================================
+   HISTÓRIA INICIAL
+   ===================================================== */
+
+.story-intro {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  padding: clamp(1.5rem, 6vw, 7rem);
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    90deg,
+    rgba(2, 7, 29, 0.18),
+    rgba(2, 7, 29, 0.7) 52%,
+    rgba(2, 7, 29, 0.9)
+  );
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  visibility: hidden;
+
+  transition:
+    opacity 480ms ease,
+    visibility 480ms ease;
+}
+
+/*
+   O JavaScript do mapa adiciona
+   story-active ao body.
+*/
+
+.story-active .story-intro {
+  opacity: 1;
+
+  pointer-events: auto;
+
+  visibility: visible;
+}
+
+/* =====================================================
+   ÁREA DO PERSONAGEM DA HISTÓRIA INICIAL
+   ===================================================== */
+
+.story-character-stage {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+/* =====================================================
+   PERSONAGEM DA HISTÓRIA INICIAL
+   ===================================================== */
+
+.story-intro .story-character {
+  position: absolute;
+
+  bottom: clamp(-22rem, -16vw, 10rem);
+
+  left: clamp(1rem, 9vw, 10rem);
+
+  width: clamp(380px, 45vw, 690px);
+
+  height: auto;
+
+  image-rendering: pixelated;
+
+  pointer-events: none;
+
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 28px rgba(69, 116, 255, 0.38));
+
+  animation: heroEntrance 720ms cubic-bezier(0.18, 0.84, 0.3, 1) both;
+}
+
+/* =====================================================
+   CENAS DA HISTÓRIA INICIAL
+   ===================================================== */
+
+.story-intro .story-character.story-character--scene-1 {
+  bottom: clamp(-22rem, -6vw, 10rem);
+
+  left: clamp(1rem, 10vw, 15rem);
+
+  width: clamp(380px, 40vw, 690px);
+}
+
+.story-intro .story-character.story-character--scene-2 {
+  bottom: clamp(-22rem, -8vw, 10rem);
+
+  left: clamp(1rem, 8vw, 10rem);
+
+  width: clamp(380px, 45vw, 690px);
+}
+
+.story-intro .story-character.story-character--scene-3 {
+  bottom: clamp(-14rem, -6vw, 10rem);
+
+  left: clamp(1rem, 4vw, 10rem);
+
+  width: clamp(460px, 52vw, 780px);
+}
+
+.story-intro .story-character.story-character--scene-4 {
+  bottom: clamp(-22rem, -10vw, 10rem);
+
+  left: clamp(1rem, 9vw, 10rem);
+
+  width: clamp(380px, 42vw, 690px);
+}
+
+/* =====================================================
+   CAIXA DA HISTÓRIA INICIAL
+   ===================================================== */
+
+.story-intro .story-dialogue {
+  position: relative;
+
+  z-index: 5;
+
+  width: min(610px, 49vw);
+
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+
+  border: 3px solid rgba(140, 174, 255, 0.78);
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(16, 27, 66, 0.94),
+    rgba(7, 12, 35, 0.94)
+  );
+
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.52),
+    0 0 36px rgba(101, 217, 255, 0.18);
+
+  animation: dialogueEntrance 620ms 180ms ease both;
+}
+
+/* =====================================================
+   TÍTULO
+   ===================================================== */
+
+.story-intro .story-kicker {
+  margin: 0 0 1.25rem;
+
+  color: var(--neon-gold);
+
+  font-size: clamp(0.52rem, 1vw, 0.7rem);
+
+  line-height: 1.8;
+
+  text-transform: uppercase;
+}
+
+.story-intro .story-dialogue h1 {
+  margin: 0;
+
+  color: #fff6bf;
+
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+
+  line-height: 1.65;
+}
+
+.story-intro .story-dialogue p:not(.story-kicker) {
+  margin: 1.35rem 0 0;
+
+  color: #f5f6ff;
+
+  font-size: clamp(0.56rem, 1.1vw, 0.76rem);
+
+  line-height: 2;
+}
+
+/* =====================================================
+   BOTÃO DA HISTÓRIA INICIAL
+   ===================================================== */
+
+.story-start-button {
+  margin-top: 1.7rem;
+
+  padding: 0.95rem 1.2rem;
+
+  border: 3px solid rgba(255, 219, 118, 0.92);
+
+  border-radius: 11px;
+
+  background: linear-gradient(180deg, #405bd2, #182875);
+
+  box-shadow:
+    0 6px 0 #10184c,
+    0 0 18px rgba(248, 216, 107, 0.24);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: clamp(0.55rem, 1vw, 0.72rem);
+
+  line-height: 1.5;
+
+  text-transform: uppercase;
+
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+.story-start-button:hover,
+.story-start-button:focus-visible {
+  filter: brightness(1.16);
+
+  outline: none;
+
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   =====================================================
+   ENCERRAMENTO
+   =====================================================
+   ===================================================== */
+
+.final-scene {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 200;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  padding: clamp(1.5rem, 6vw, 7rem);
+
+  overflow: hidden;
+
+  background: linear-gradient(
+    90deg,
+    rgba(2, 7, 29, 0.18),
+    rgba(2, 7, 29, 0.7) 52%,
+    rgba(2, 7, 29, 0.9)
+  );
+
+  opacity: 1;
+
+  visibility: visible;
+
+  pointer-events: auto;
+
+  transition:
+    opacity 550ms ease,
+    transform 550ms ease;
+}
+
+/*
+   hidden precisa ganhar prioridade.
+*/
+
+.final-scene[hidden] {
+  display: none;
+}
+
+/* =====================================================
+   ÁREA DOS PERSONAGENS DO ENCERRAMENTO
+   ===================================================== */
+
+.final-character-stage {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+/* =====================================================
+   PERSONAGENS DO ENCERRAMENTO
+   ===================================================== */
+
+.final-character {
+  position: absolute;
+
+  bottom: clamp(-22rem, -16vw, -10rem);
+
+  left: clamp(1rem, 9vw, 10rem);
+
+  width: clamp(380px, 45vw, 690px);
+
+  height: auto;
+
+  image-rendering: pixelated;
+
+  pointer-events: none;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.5s ease,
+    visibility 0.5s ease,
+    filter 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* =====================================================
+   HERÓI
+   ===================================================== */
+
+#final-scene .hero-character {
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 28px rgba(69, 116, 255, 0.38));
+
+  animation: heroEntrance 720ms cubic-bezier(0.18, 0.84, 0.3, 1) both;
+}
+
+/* =====================================================
+   BOSS / POTENCIUS
+   ===================================================== */
+
+#final-scene .villain-character {
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 28px rgba(69, 116, 255, 0.38));
+
+  animation: heroEntrance 720ms cubic-bezier(0.18, 0.84, 0.3, 1) both;
+}
+
+/* =====================================================
+   CENAS DO ENCERRAMENTO
+   ===================================================== */
+
+#final-scene .final-character--scene-1,
+#final-scene .final-character--scene-5 {
+  bottom: clamp(-22rem, -4vw, 10rem);
+  left: clamp(1rem, 9vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+}
+
+#final-scene .final-character--scene-2,
+#final-scene .final-character--scene-6 {
+  bottom: clamp(-22rem, -10vw, 10rem);
+  left: clamp(1rem, 8vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+}
+
+#final-scene .final-character--scene-3,
+#final-scene .final-character--scene-7 {
+  bottom: clamp(-14rem, -6vw, 6rem);
+  left: clamp(1rem, 4vw, 10rem);
+  width: clamp(460px, 52vw, 780px);
+}
+
+#final-scene .final-character--scene-4 {
+  bottom: clamp(-22rem, -8vw, 10rem);
+  left: clamp(1rem, 9vw, 10rem);
+  width: clamp(380px, 45vw, 690px);
+}
+
+/*
+   Quando o herói está falando.
+*/
+
+#final-scene .hero-character.is-speaking {
+  z-index: 2;
+
+  opacity: 1;
+  visibility: visible;
+
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 28px rgba(101, 217, 255, 0.48));
+}
+
+/*
+   Quando Potencius está falando.
+*/
+
+#final-scene .villain-character.is-speaking {
+  z-index: 2;
+
+  opacity: 1;
+  visibility: visible;
+
+  filter: drop-shadow(0 12px 8px rgba(0, 0, 0, 0.72))
+    drop-shadow(0 0 28px rgba(199, 148, 255, 0.52));
+}
+
+/* =====================================================
+   CAIXA DO ENCERRAMENTO
+   ===================================================== */
+
+.final-dialogue {
+  position: relative;
+
+  z-index: 10;
+
+  width: min(610px, 49vw);
+
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+
+  border: 3px solid rgba(140, 174, 255, 0.78);
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    145deg,
+    rgba(16, 27, 66, 0.94),
+    rgba(7, 12, 35, 0.94)
+  );
+
+  box-shadow:
+    0 18px 48px rgba(0, 0, 0, 0.52),
+    0 0 36px rgba(101, 217, 255, 0.18);
+
+  animation: dialogueEntrance 620ms 180ms ease both;
+}
+
+/* =====================================================
+   NOME DO PERSONAGEM
+   ===================================================== */
+
+.final-kicker {
+  margin: 0 0 1.25rem;
+
+  color: var(--neon-gold);
+
+  font-size: clamp(0.52rem, 1vw, 0.7rem);
+
+  line-height: 1.8;
+
+  text-transform: uppercase;
+}
+
+/* =====================================================
+   TÍTULO DO ENCERRAMENTO
+   ===================================================== */
+
+.final-dialogue h1 {
+  margin: 0;
+
+  color: #fff6bf;
+
+  font-size: clamp(0.9rem, 1.8vw, 1.35rem);
+
+  line-height: 1.65;
+}
+
+/* =====================================================
+   TEXTO
+   ===================================================== */
+
+#dialogue-text {
+  margin: 1.35rem 0 0;
+
+  color: #f5f6ff;
+
+  font-size: clamp(0.56rem, 1.1vw, 0.76rem);
+
+  line-height: 2;
+}
+
+/* =====================================================
+   BOTÃO DO ENCERRAMENTO
+   ===================================================== */
+
+#next-line {
+  margin-top: 1.7rem;
+
+  padding: 0.95rem 1.2rem;
+
+  border: 3px solid rgba(255, 219, 118, 0.92);
+
+  border-radius: 11px;
+
+  background: linear-gradient(180deg, #405bd2, #182875);
+
+  box-shadow:
+    0 6px 0 #10184c,
+    0 0 18px rgba(248, 216, 107, 0.24);
+
+  color: #fff;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: clamp(0.55rem, 1vw, 0.72rem);
+
+  line-height: 1.5;
+
+  text-transform: uppercase;
+
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+#next-line:hover,
+#next-line:focus-visible {
+  filter: brightness(1.16);
+
+  outline: none;
+
+  transform: translateY(-2px);
+}
+
+/* =====================================================
+   CRÉDITOS
+   ===================================================== */
+
+.credits {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 300;
+
+  overflow: hidden;
+
+  background: radial-gradient(
+    ellipse at center,
+    rgba(32, 31, 83, 0.38),
+    rgba(3, 6, 24, 0.96) 72%
+  );
+}
+
+.credits[hidden] {
+  display: none;
+}
+
+.credits-roll {
+  position: absolute;
+
+  top: 100%;
+
+  left: 0;
+
+  width: 100%;
+
+  padding: 0 1.5rem 18vh;
+
+  text-align: center;
+
+  animation: credits-rise 68s linear forwards;
+}
+
+.credits-overline {
+  margin: 0 0 4rem;
+
+  color: var(--neon-blue);
+
+  font-size: clamp(0.48rem, 0.8vw, 0.68rem);
+
+  line-height: 2;
+}
+
+.credits h1 {
+  margin: 0;
+
+  color: var(--neon-gold);
+
+  font-size: clamp(1.7rem, 5vw, 4rem);
+
+  line-height: 1.7;
+
+  text-shadow: 0 0 24px rgba(248, 216, 107, 0.28);
+}
+
+.credits-star {
+  margin: 2rem 0 5rem;
+
+  color: var(--neon-violet);
+
+  font-size: 2rem;
+
+  animation: credits-pulse 3s ease-in-out infinite;
+}
+
+.credits h2 {
+  margin: 4rem 0 1.7rem;
+
+  color: var(--neon-blue);
+
+  font-size: clamp(0.6rem, 1vw, 0.85rem);
+
+  line-height: 1.9;
+}
+
+.credits p {
+  color: #f5f1ff;
+
+  font-size: clamp(0.56rem, 0.92vw, 0.76rem);
+
+  line-height: 2.4;
+}
+
+.credits p span {
+  color: #c9c3e2;
+
+  font-size: 0.78em;
+}
+
+.credits-dedication {
+  margin-top: 5rem;
+
+  color: var(--neon-gold) !important;
+}
+
+.credits-the-end {
+  margin-top: 6rem;
+
+  color: var(--neon-gold) !important;
+
+  font-size: 1.1rem !important;
+
+  line-height: 2.7 !important;
+}
+
+.return-link {
+  position: fixed;
+
+  right: 1.5rem;
+
+  bottom: 1.5rem;
+
+  z-index: 301;
+
+  padding: 0.8rem 1rem;
+
+  border: 1px solid rgba(140, 174, 255, 0.7);
+
+  border-radius: 8px;
+
+  color: #fff;
+
+  background: rgba(9, 14, 45, 0.9);
+
+  font-size: 0.48rem;
+
+  text-decoration: none;
+}
+
+.return-link:hover,
+.return-link:focus-visible {
+  border-color: var(--neon-gold);
+
+  color: var(--neon-gold);
+
+  outline: none;
+}
+
+@keyframes credits-rise {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-165%);
+  }
+}
+
+@keyframes credits-pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(0.94);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 780px) {
+  .final-scene {
+    align-items: flex-start;
+
+    justify-content: center;
+
+    padding: 1.1rem;
+  }
+
+  #final-scene .hero-character {
+    bottom: -7.4rem;
+
+    left: 36%;
+
+    width: min(105vw, 455px);
+
+    transform: translateX(-50%);
+  }
+
+  #final-scene .villain-character {
+    bottom: -7.4rem;
+
+    left: 36%;
+
+    width: min(90vw, 390px);
+
+    transform: translateX(-50%);
+  }
+
+  #final-scene .hero-character.is-speaking,
+  #final-scene .villain-character.is-speaking {
+    transform: translateX(-50%);
+  }
+
+  .final-dialogue {
+    width: min(100%, 540px);
+
+    padding: 1.25rem;
+  }
+
+  .final-kicker {
+    margin-bottom: 0.9rem;
+  }
+
+  #dialogue-text {
+    margin-top: 1rem;
+
+    line-height: 1.8;
+  }
+
+  #next-line {
+    width: 100%;
+
+    margin-top: 1.2rem;
+  }
+
+  .credits-roll {
+    animation-duration: 72s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-intro,
+  .story-character,
+  .story-dialogue,
+  .final-scene,
+  .final-character,
+  .credits-roll,
+  .credits-star {
+    animation: none;
+
+    transition: none;
+  }
+}

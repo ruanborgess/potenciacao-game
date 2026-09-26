@@ -23,10 +23,10 @@ const bossQuestions = {
 };
 
 const battlePhaseSettings = {
-  vila: { background: "../assets/images/campo_batalha.png", normalDamage: 260, bossDamage: 4 },
-  arvore: { background: "../assets/images/campo_batalha.png", normalDamage: 340, bossDamage: 5 },
-  portao: { background: "../assets/images/campo_batalha.png", normalDamage: 420, bossDamage: 6 },
-  castelo: { background: "../assets/images/campo_batalha.png", normalDamage: 500, bossDamage: 7 }
+  vila: { background: "../assets/images/campo_batalha.png", normalDamage: 260, bossDamage: 12 },
+  arvore: { background: "../assets/images/campo_batalha.png", normalDamage: 340, bossDamage: 15 },
+  portao: { background: "../assets/images/campo_batalha.png", normalDamage: 420, bossDamage: 17 },
+  castelo: { background: "../assets/images/campo_batalha.png", normalDamage: 4000, bossDamage: 20 }
 };
 
 function createPowerQuestion([base, exponent]) {

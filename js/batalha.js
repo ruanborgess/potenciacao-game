@@ -104,6 +104,7 @@ if (!boss || !phaseSetting || !bossLiberado) {
     resultHealth: document.querySelector("#result-health"),
     resultEnergy: document.querySelector("#result-energy"),
     resultSpecials: document.querySelector("#result-specials"),
+    resultImage: document.querySelector("#result-boss-image"),
     retry: document.querySelector("#result-retry"),
     resultBack: document.querySelector("#result-back"),
   };
@@ -184,6 +185,8 @@ if (!boss || !phaseSetting || !bossLiberado) {
 
     ui.energyBar.style.width =
       `${state.energy}%`;
+
+    updateAttackButtons();
   }
 
   // ==================================================
@@ -194,9 +197,19 @@ if (!boss || !phaseSetting || !bossLiberado) {
     document
       .querySelectorAll(".attack-button")
       .forEach((button) => {
+        const attack = battleAttacks.find(
+          (item) => item.id === button.dataset.attack
+        );
+
         button.classList.toggle(
           "selected",
           state.attack?.id === button.dataset.attack
+        );
+        button.classList.toggle(
+          "is-low-energy",
+          Boolean(attack) &&
+            !usedAttacks.has(attack.id) &&
+            state.energy < attack.cost
         );
       });
   }
@@ -353,6 +366,8 @@ if (!boss || !phaseSetting || !bossLiberado) {
     ui.resultDescription.textContent = won
       ? `Você derrotou ${boss.name} e abriu caminho na jornada.`
       : `${boss.name} venceu desta vez. Revise as potências e tente novamente.`;
+    ui.resultImage.src = boss.image;
+    ui.resultImage.alt = boss.name;
 
     ui.resultCorrect.textContent = state.correct;
     ui.resultWrong.textContent = state.wrong;
@@ -369,6 +384,26 @@ if (!boss || !phaseSetting || !bossLiberado) {
 
     ui.retry.hidden = won;
     ui.result.hidden = false;
+
+    const isPotenciusFinal =
+      won &&
+      battlePhase === "castelo" &&
+      bossIndex === phaseBosses.castelo.length - 1 &&
+      boss.name.toLocaleUpperCase("pt-BR") === "POTENCIUS";
+
+    if (isPotenciusFinal) {
+      ui.resultKicker.textContent = "A LUZ VOLTOU AO REINO";
+      ui.resultTitle.textContent = "VOCÊ CONSEGUIU!";
+      ui.resultDescription.textContent =
+        "O reino está salvo. Uma última conversa aguarda você no coração do castelo.";
+      ui.resultBack.href = "mapa.html?final=1";
+      ui.resultBack.textContent = "SEGUIR PARA A HISTÓRIA ✦";
+      ui.resultBack.setAttribute("aria-label", "Continuar para a história final");
+    } else {
+      ui.resultBack.href = backUrl;
+      ui.resultBack.textContent = "VOLTAR À FASE";
+      ui.resultBack.setAttribute("aria-label", "Voltar à fase");
+    }
   }
 
   // ==================================================
@@ -391,14 +426,32 @@ if (!boss || !phaseSetting || !bossLiberado) {
       !state.bossSpecialUsed &&
       state.bossHealth / initialBossHealth <= 0.1;
 
-    const damage = special
-      ? phaseSetting.bossDamage * 3
-      : phaseSetting.bossDamage + bossIndex;
+    const damage = phaseSetting.bossDamage * (special ? 2 : 1);
 
     state.lastBossQuestionId = question.id;
     state.bossSpecialUsed ||= special;
 
     ui.bossTurn.hidden = false;
+    ui.bossTurn.classList.toggle("is-special", special);
+    ui.bossTurn.classList.remove("is-feedback");
+    ui.bossTurnLabel.textContent = special
+      ? "ESPECIAL DO CHEFE · PODER FINAL"
+      : "O CHEFE RESPONDE";
+    ui.bossQuestion.textContent = "";
+    ui.bossAnswer.textContent = "";
+
+    // Mostra primeiro o resultado do jogador por dois segundos.
+    ui.bossTurn.classList.add("is-feedback");
+    ui.bossTurnLabel.textContent = "RESULTADO DA SUA RESPOSTA";
+    ui.bossQuestion.textContent = "";
+    ui.bossAnswer.innerHTML = state.lastAnswerCorrect
+      ? "<strong> ACERTOU!</strong> O chefe recebeu dano."
+      : "<strong> ERROU!</strong> O chefe prepara a resposta.";
+    await wait(2000);
+
+    if (state.locked) return;
+
+    ui.bossTurn.classList.remove("is-feedback");
 
     ui.bossTurnLabel.textContent = special
       ? "ESPECIAL DO CHEFE · PODER FINAL"
@@ -461,11 +514,13 @@ if (!boss || !phaseSetting || !bossLiberado) {
       const correct =
         Number(ui.input.value) ===
         state.currentQuestion.answer;
+      state.lastAnswerCorrect = correct;
 
       state.rounds += 1;
 
       if (correct) {
         state.correct += 1;
+        state.energy = Math.min(100, state.energy + 25);
 
         const damage = attack
           ? attack.damage
@@ -477,6 +532,14 @@ if (!boss || !phaseSetting || !bossLiberado) {
         updateMeters();
 
         if (state.bossHealth === 0) {
+          ui.bossTurn.hidden = false;
+          ui.bossTurn.classList.remove("is-special");
+          ui.bossTurn.classList.add("is-feedback");
+          ui.bossTurnLabel.textContent = "RESULTADO DA SUA RESPOSTA";
+          ui.bossQuestion.textContent = "";
+          ui.bossAnswer.innerHTML =
+            "<strong> ACERTOU!</strong> Golpe final! O chefe foi derrotado.";
+          await wait(2000);
           return endBattle(true);
         }
       } else {

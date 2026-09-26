@@ -87,6 +87,7 @@
               autocomplete="off"
               placeholder="RESPOSTA"
               disabled
+              required
             />
             <button id="answer-button" type="submit" disabled>LANÇAR</button>
           </form>
@@ -102,6 +103,7 @@
 
       <section id="battle-result" class="battle-result" aria-live="assertive" hidden>
         <div class="result-card">
+          <div class="result-portrait-wrap"><img id="result-boss-image" class="result-portrait" alt="" /><span aria-hidden="true">✦</span></div>
           <p id="result-kicker" class="result-kicker">RESULTADO DA BATALHA</p>
           <h2 id="result-title">VITÓRIA!</h2>
           <p id="result-description" class="result-description"></p>

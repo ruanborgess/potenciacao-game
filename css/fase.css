@@ -599,3 +599,51 @@ a {
   box-shadow: 0 0 8px rgba(167, 94, 255, 0.8);
   transition: width 0.2s ease;
 }
+
+/* Selo da progressão: deixa o número livre e prende o cadeado ao retrato. */
+.boss-card.is-locked {
+  color: #b8b2c8;
+  border-color: rgba(125, 116, 151, .72);
+  background: linear-gradient(110deg, rgba(9, 11, 30, .97), rgba(24, 20, 43, .94));
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, .3);
+}
+
+.boss-card.is-locked:hover {
+  border-color: rgba(125, 116, 151, .72);
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, .3);
+}
+
+.boss-card.is-locked .boss-number::after {
+  content: none;
+}
+
+.boss-image-container {
+  position: relative;
+}
+
+.boss-card.is-locked .boss-image-container::after {
+  position: absolute;
+  top: 5px;
+  right: 4px;
+  display: grid;
+  width: 29px;
+  height: 29px;
+  content: "";
+  border: 2px solid #e0c779;
+  border-radius: 9px;
+  background-color: rgba(13, 15, 35, .96);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e0c779' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='4' y='10' width='16' height='11' rx='2'/%3E%3Cpath d='M8 10V7a4 4 0 0 1 8 0v3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+  box-shadow: 0 3px 0 #070817, 0 0 12px rgba(224, 199, 121, .38);
+}
+
+.boss-card.is-locked .boss-image-container img {
+  filter: grayscale(.8) brightness(.58) drop-shadow(0 5px 5px #000);
+}
+
+.boss-card.is-locked .boss-card-copy,
+.boss-card.is-locked .stars {
+  opacity: .58;
+}

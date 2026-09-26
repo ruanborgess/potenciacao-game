@@ -15,15 +15,20 @@
     />
 
     <link rel="stylesheet" href="../css/mapa.css" />
+    <link rel="stylesheet" href="../css/historia.css" />
   </head>
 
   <body>
+
+    <!-- =====================================================
+         MAPA
+         ===================================================== -->
+
     <main class="map-screen">
-      <!-- Área que acompanha exatamente a tela -->
+
       <div class="map-world">
-        <!-- ==========================================
-             FASE 1 - VILA
-             ========================================== -->
+
+        <!-- FASE 1 -->
         <a
           href="fase.html?fase=vila"
           class="phase phase-vila"
@@ -36,9 +41,7 @@
           </span>
         </a>
 
-        <!-- ==========================================
-             FASE 2 - ÁRVORE
-             ========================================== -->
+        <!-- FASE 2 -->
         <a
           href="fase.html?fase=arvore"
           class="phase phase-arvore"
@@ -51,9 +54,7 @@
           </span>
         </a>
 
-        <!-- ==========================================
-             FASE 3 - PORTÃO
-             ========================================== -->
+        <!-- FASE 3 -->
         <a
           href="fase.html?fase=portao"
           class="phase phase-portao"
@@ -66,9 +67,7 @@
           </span>
         </a>
 
-        <!-- ==========================================
-             FASE 4 - CASTELO
-             ========================================== -->
+        <!-- FASE 4 -->
         <a
           href="fase.html?fase=castelo"
           class="phase phase-castelo"
@@ -81,34 +80,65 @@
           </span>
         </a>
 
-        <!-- ==========================================
-             PERSONAGEM
-             ========================================== -->
+        <!-- PERSONAGEM DO MAPA -->
         <img
           src="../assets/images/personagem.png"
           alt="Personagem"
           class="map-character"
           id="mapCharacter"
         />
+
       </div>
     </main>
 
-    <section class="story-intro" id="story-intro" aria-labelledby="story-title">
-      <div class="story-character-stage" aria-hidden="true">
+
+    <!-- =====================================================
+         HISTÓRIA INICIAL DO MAPA
+         ===================================================== -->
+
+    <section
+      class="story-intro"
+      id="story-intro"
+      aria-labelledby="story-title"
+    >
+
+      <!-- PERSONAGEM DA HISTÓRIA INICIAL -->
+      <div
+        class="story-character-stage"
+        aria-hidden="true"
+      >
+
         <img
           src="../assets/images/personagem.png"
           alt=""
           class="story-character story-character--scene-1"
           id="story-character"
         />
+
       </div>
 
+
+      <!-- CAIXA DA HISTÓRIA -->
       <div class="story-dialogue">
-        <p class="story-kicker" id="story-step">História 1 de 4</p>
-        <h1 id="story-title">O Reino Exponencial precisa de você.</h1>
-        <p id="story-text" aria-live="polite">
-          A luz das torres se apagou, e uma sombra avança do castelo.
+
+        <p
+          class="story-kicker"
+          id="story-step"
+        >
+          História 1 de 4
         </p>
+
+        <h1 id="story-title">
+          Título da história inicial do mapa
+        </h1>
+
+        <p
+          id="story-text"
+          aria-live="polite"
+        >
+          Texto da história inicial do mapa. "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel tincidunt lacinia, nunc nisl aliquam nunc, eget aliquam nisl nunc vel nisl."
+        </p>
+
         <button
           class="story-start-button"
           id="story-start-button"
@@ -116,10 +146,165 @@
         >
           Próximo
         </button>
+
       </div>
+
     </section>
 
+
+    <!-- =====================================================
+         HISTÓRIA FINAL
+         ===================================================== -->
+
+    <section
+      class="final-scene"
+      id="final-scene"
+      aria-live="polite"
+      hidden
+    >
+
+      <!-- ===================================================
+           PERSONAGENS DO FINAL
+           =================================================== -->
+
+      <div
+        class="final-character-stage"
+        aria-label="O herói e Potencius"
+      >
+
+        <!-- HERÓI -->
+        <img
+          src="../assets/images/personagem_bravo.png"
+          alt="O herói"
+          class="final-character hero-character is-speaking"
+          id="hero-character"
+        />
+
+        <!-- BOSS -->
+        <img
+          src="../assets/images/boss.png"
+          alt="Potencius"
+          class="final-character villain-character"
+          id="villain-character"
+        />
+
+      </div>
+
+
+      <!-- ===================================================
+           CAIXA DE DIÁLOGO FINAL
+           =================================================== -->
+
+      <article class="final-dialogue">
+
+        <p
+          class="final-kicker"
+          id="speaker"
+        >
+          O HERÓI
+        </p>
+
+        <h1 id="dialogue-title">
+          O silêncio depois da batalha
+        </h1>
+
+        <p
+          id="dialogue-text"
+        >
+          A última luz explodiu em mil pontos dourados.
+        </p>
+
+        <button
+          id="next-line"
+          type="button"
+        >
+          CONTINUAR
+        </button>
+
+      </article>
+
+    </section>
+
+
+    <!-- =====================================================
+         CRÉDITOS
+         ===================================================== -->
+
+    <section
+      class="credits"
+      id="credits"
+      aria-labelledby="credits-title"
+      hidden
+    >
+
+      <div class="credits-roll">
+
+        <p class="credits-overline">
+          E ASSIM, A LUZ ENCONTROU O CAMINHO DE VOLTA...
+        </p>
+
+        <h1 id="credits-title">
+          Batalha<br />
+          das Potências
+        </h1>
+
+        <p
+          class="credits-star"
+          aria-hidden="true"
+        >
+          ✦
+        </p>
+
+        <h2>
+          UMA AVENTURA DE APRENDIZADO
+        </h2>
+
+        <p>
+          BASES, EXPOENTES<br />
+          E MUITA CORAGEM
+        </p>
+
+        <h2>
+          HERÓI DA JORNADA
+        </h2>
+
+        <p>
+          VOCÊ<br />
+          <span>
+            Por cada tentativa, descoberta e resposta.
+          </span>
+        </p>
+
+        <h2>
+          ELENCO
+        </h2>
+
+        <p>
+          O MAGO EXPONENCIAL<br />
+          POTENCIUS<br />
+          OS GUARDIÕES DO REINO
+        </p>
+
+        <p class="credits-dedication">
+          Que a curiosidade continue se multiplicando.
+        </p>
+
+        <p class="credits-the-end">
+          FIM<br />
+          <span>
+            ...ou o começo de uma nova potência.
+          </span>
+        </p>
+
+      </div>
+
+      <a class="return-link" href="../index.html"> VOLTAR AO INÍCIO </a>
+
+    </section>
+    
     <script src="../js/progressao.js"></script>
     <script src="../js/mapa.js"></script>
+    <script src="../js/historia.js"></script>
+
   </body>
 </html>
