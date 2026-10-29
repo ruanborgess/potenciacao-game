@@ -14,11 +14,104 @@
     <div class="menu-wrapper">
       <div class="menu-panel">
         <button class="btn menu-btn menu-btn-primary" id="new-game-button" type="button">Novo Jogo</button>
-        <button class="btn menu-btn" type="button">Continuar</button>
-        <button class="btn menu-btn" type="button">Opções</button>
+        <button class="btn menu-btn" id="continue-game-button" type="button">Continuar</button>
+        <button class="btn menu-btn" id="options-button" type="button">Opções</button>
         <button class="btn menu-btn" type="button">Sair</button>
       </div>
     </div>
+
+    <!-- Tela visual de opções aberta pelo botão original do menu. -->
+    <section class="options-screen" id="options-screen" aria-labelledby="options-heading" hidden>
+      <button class="options-scrim" type="button" data-close-options aria-label="Fechar opções"></button>
+
+      <div class="options-panel" role="dialog" aria-modal="true" aria-labelledby="options-heading">
+        <header class="options-header">
+          <div>
+            <p class="options-kicker">AJUSTES DA AVENTURA</p>
+            <h2 id="options-heading">Opções</h2>
+            <p>Prepare o jogo do seu jeito.</p>
+          </div>
+          <button class="options-close" id="close-options-button" type="button" aria-label="Voltar ao menu">×</button>
+        </header>
+
+        <div class="options-grid">
+          <label class="option-card" for="master-volume">
+            <span class="option-title">Volume geral</span>
+            <span class="option-description">Nível de áudio da aventura</span>
+            <span class="option-range-row">
+              <span aria-hidden="true">◖</span>
+              <input id="master-volume" type="range" min="0" max="100" value="80" />
+              <output for="master-volume">80%</output>
+            </span>
+          </label>
+
+          <label class="option-card" for="music-volume">
+            <span class="option-title">Música</span>
+            <span class="option-description">Trilha sonora do reino</span>
+            <span class="option-range-row">
+              <span aria-hidden="true">♫</span>
+              <input id="music-volume" type="range" min="0" max="100" value="65" />
+              <output for="music-volume">65%</output>
+            </span>
+          </label>
+
+          <label class="option-card option-select-card" for="difficulty-setting">
+            <span class="option-title">Dificuldade</span>
+            <span class="option-description">Ritmo dos desafios</span>
+            <select id="difficulty-setting">
+              <option>Aprendiz</option>
+              <option selected>Aventureiro</option>
+              <option>Guardião</option>
+            </select>
+          </label>
+
+          <label class="option-card option-select-card" for="language-setting">
+            <span class="option-title">Idioma</span>
+            <span class="option-description">Textos e instruções</span>
+            <select id="language-setting">
+              <option selected>Português (Brasil)</option>
+              <option>English</option>
+            </select>
+          </label>
+
+          <label class="option-toggle-card">
+            <span class="option-toggle-copy">
+              <strong>Reduzir animações</strong>
+              <small>Movimentos mais discretos na tela</small>
+            </span>
+            <input type="checkbox" />
+            <span class="option-switch" aria-hidden="true"></span>
+          </label>
+
+          <label class="option-toggle-card">
+            <span class="option-toggle-copy">
+              <strong>Alto contraste</strong>
+              <small>Mais destaque entre textos e painéis</small>
+            </span>
+            <input type="checkbox" />
+            <span class="option-switch" aria-hidden="true"></span>
+          </label>
+        </div>
+
+        <footer class="options-footer">
+          <span>✦ O reino está pronto para você.</span>
+          <button id="back-from-options-button" type="button">VOLTAR AO MENU</button>
+        </footer>
+      </div>
+    </section>
+
+    <!-- Aviso mostrado quando a pessoa tenta continuar sem uma aventura iniciada. -->
+    <section class="continue-notice" id="continue-notice" aria-labelledby="continue-notice-heading" hidden>
+      <button class="continue-notice-backdrop" type="button" data-close-continue-notice aria-label="Fechar mensagem"></button>
+
+      <div class="continue-notice-card" role="dialog" aria-modal="true" aria-labelledby="continue-notice-heading" aria-describedby="continue-notice-message">
+        <span class="continue-notice-sparkle" aria-hidden="true">✦</span>
+        <p class="continue-notice-kicker">UMA NOVA JORNADA</p>
+        <h2 id="continue-notice-heading">Sua aventura espera por você!</h2>
+        <p id="continue-notice-message">Ainda não há uma aventura para continuar. Escolha <strong>Novo Jogo</strong> e comece sua jornada pelo reino.</p>
+        <button class="continue-notice-button" id="dismiss-continue-notice" type="button">ENTENDI, VOU COMEÇAR</button>
+      </div>
+    </section>
 
     <section class="loading-screen" id="loading-screen" aria-hidden="true" aria-live="polite">
       <div class="loading-panel">

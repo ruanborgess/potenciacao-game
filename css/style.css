@@ -206,3 +206,347 @@ body::before {
     letter-spacing: 0.06em;
   }
 }
+
+/* Tela modal que contém as opções ilustrativas do jogo. */
+.options-screen {
+  position: fixed;
+  z-index: 5;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.options-screen[hidden] {
+  display: none;
+}
+
+.options-scrim {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(1, 5, 19, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.options-panel {
+  position: relative;
+  width: min(720px, 96vw);
+  max-height: 92vh;
+  overflow: auto;
+  padding: clamp(1.2rem, 4vw, 2rem);
+  border: 2px solid var(--panel-border);
+  border-radius: 18px;
+  background: linear-gradient(145deg, rgba(17, 26, 55, 0.98), rgba(7, 12, 30, 0.98));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 32px rgba(101, 217, 255, 0.16);
+  color: #f5f6ff;
+  font-family: Arial, sans-serif;
+}
+
+/* Cabeçalho e botão de retorno do painel de opções. */
+.options-header,
+.options-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.options-header {
+  align-items: flex-start;
+  margin-bottom: 1.2rem;
+}
+
+.options-header p,
+.options-header h2 {
+  margin: 0;
+}
+
+.options-kicker {
+  margin-bottom: 0.6rem !important;
+  color: var(--neon-blue);
+  font: 0.52rem/1.8 "Press Start 2P", cursive;
+}
+
+.options-header h2 {
+  color: #fff;
+  font: clamp(1rem, 3vw, 1.4rem)/1.6 "Press Start 2P", cursive;
+}
+
+.options-header p:last-child {
+  margin-top: 0.45rem;
+  color: rgba(226, 233, 255, 0.68);
+}
+
+.options-close {
+  width: 42px;
+  height: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  cursor: pointer;
+  font-size: 1.6rem;
+}
+
+/* Campos de áudio, dificuldade, idioma e acessibilidade. */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.option-card,
+.option-toggle-card {
+  min-width: 0;
+  padding: 0.95rem;
+  border: 1px solid rgba(151, 173, 236, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #f5f6ff;
+}
+
+.option-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.option-title,
+.option-toggle-copy strong {
+  font-size: 0.95rem;
+}
+
+.option-description,
+.option-toggle-copy small {
+  color: rgba(226, 233, 255, 0.62);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.option-range-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) 40px;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.4rem;
+  color: var(--neon-gold);
+}
+
+.option-range-row input {
+  width: 100%;
+  accent-color: var(--neon-blue);
+}
+
+.option-range-row output {
+  color: rgba(245, 246, 255, 0.8);
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+.option-select-card select {
+  margin-top: 0.45rem;
+  padding: 0.65rem;
+  border: 1px solid rgba(151, 173, 236, 0.28);
+  border-radius: 8px;
+  background: #111b38;
+  color: #f5f6ff;
+}
+
+.option-toggle-card {
+  display: flex;
+  min-height: 78px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  cursor: pointer;
+}
+
+.option-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.option-toggle-card input {
+  position: absolute;
+  opacity: 0;
+}
+
+.option-switch {
+  position: relative;
+  width: 42px;
+  height: 24px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(198, 210, 246, 0.35);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.option-switch::after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #dfe7ff;
+  content: "";
+  transition: transform 180ms ease;
+}
+
+.option-toggle-card input:checked + .option-switch {
+  border-color: var(--neon-blue);
+  background: rgba(101, 217, 255, 0.25);
+}
+
+.option-toggle-card input:checked + .option-switch::after {
+  transform: translateX(18px);
+  background: var(--neon-blue);
+}
+
+/* Rodapé do modal e adaptações para celular. */
+.options-footer {
+  margin-top: 1.1rem;
+}
+
+.options-footer span {
+  color: rgba(226, 233, 255, 0.6);
+  font-size: 0.8rem;
+}
+
+.options-footer button {
+  min-height: 42px;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid rgba(248, 216, 107, 0.48);
+  border-radius: 9px;
+  background: rgba(248, 216, 107, 0.1);
+  color: var(--neon-gold);
+  cursor: pointer;
+  font: 0.48rem "Press Start 2P", cursive;
+}
+
+@media (max-width: 520px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .options-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .options-footer button {
+    width: 100%;
+  }
+}
+
+/* Aviso estilizado para orientar a pessoa quando não há aventura a continuar. */
+.continue-notice {
+  position: fixed;
+  z-index: 6;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  animation: continue-notice-appear 240ms ease both;
+}
+
+.continue-notice[hidden] {
+  display: none;
+}
+
+.continue-notice-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  background: rgba(1, 5, 19, 0.76);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+}
+
+/* Cartão central com destaque para a orientação e para sua próxima ação. */
+.continue-notice-card {
+  position: relative;
+  width: min(470px, 94vw);
+  padding: clamp(1.5rem, 6vw, 2.5rem);
+  border: 2px solid rgba(140, 174, 255, 0.68);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(101, 217, 255, 0.14), transparent 48%),
+    linear-gradient(145deg, rgba(17, 26, 55, 0.98), rgba(7, 12, 30, 0.98));
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), 0 0 34px rgba(101, 217, 255, 0.2);
+  color: #f5f6ff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.continue-notice-sparkle {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 1rem;
+  place-items: center;
+  border: 1px solid rgba(248, 216, 107, 0.46);
+  border-radius: 18px;
+  background: rgba(248, 216, 107, 0.1);
+  box-shadow: 0 0 24px rgba(248, 216, 107, 0.12);
+  color: var(--neon-gold);
+  font-size: 1.6rem;
+}
+
+.continue-notice-kicker {
+  margin: 0 0 0.8rem;
+  color: var(--neon-blue);
+  font: 0.48rem/1.8 "Press Start 2P", cursive;
+}
+
+.continue-notice-card h2 {
+  margin: 0;
+  color: #fff;
+  font: clamp(0.9rem, 3.5vw, 1.2rem)/1.8 "Press Start 2P", cursive;
+  text-shadow: 0 0 18px rgba(101, 217, 255, 0.2);
+}
+
+.continue-notice-card > p:not(.continue-notice-kicker) {
+  margin: 1rem 0 1.5rem;
+  color: rgba(226, 233, 255, 0.78);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.continue-notice-card strong {
+  color: var(--neon-gold);
+}
+
+.continue-notice-button {
+  min-height: 48px;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(248, 216, 107, 0.62);
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(122, 91, 39, 0.5), rgba(52, 43, 47, 0.85));
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.24);
+  color: var(--neon-gold);
+  cursor: pointer;
+  font: 0.46rem/1.7 "Press Start 2P", cursive;
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.continue-notice-button:hover,
+.continue-notice-button:focus-visible {
+  transform: translateY(-2px);
+  border-color: #ffe89b;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.34), 0 0 22px rgba(248, 216, 107, 0.16);
+  outline: none;
+}
+
+/* Entrada suave do aviso. */
+@keyframes continue-notice-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
