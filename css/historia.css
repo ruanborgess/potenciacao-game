@@ -37,7 +37,7 @@ body {
 
   background:
     linear-gradient(180deg, rgba(3, 8, 29, 0.35)),
-    url("../assets/images/fundo_mapa.png") center / cover fixed;
+    url("../assets/images/background/fundo_mapa.png") center / cover fixed;
 
   color: #f5f6ff;
 
@@ -151,11 +151,11 @@ a {
 }
 
 .story-intro .story-character.story-character--scene-2 {
-  bottom: clamp(-22rem, -8vw, 10rem);
+  bottom: clamp(-22rem, -1.5vw, 15rem);
 
-  left: clamp(1rem, 8vw, 10rem);
+  left: clamp(1rem, 5vw, 10rem);
 
-  width: clamp(380px, 45vw, 690px);
+  width: clamp(380px, 50vw, 900px);
 }
 
 .story-intro .story-character.story-character--scene-3 {
@@ -167,11 +167,11 @@ a {
 }
 
 .story-intro .story-character.story-character--scene-4 {
-  bottom: clamp(-22rem, -10vw, 10rem);
+  bottom: clamp(-22rem, -2vw, 15rem);
 
-  left: clamp(1rem, 9vw, 10rem);
+  left: clamp(1rem, 4vw, 15rem);
 
-  width: clamp(380px, 42vw, 690px);
+  width: clamp(380px, 50vw, 1000px);
 }
 
 /* =====================================================

@@ -28,7 +28,7 @@ body {
       rgba(0, 8, 30, 0.2),
       rgba(2, 8, 28, 0.45)
     ),
-    url("../assets/images/fundo_mapa.png") 43% / cover no-repeat;
+    url("../assets/images/background/fundo_mapa.png") 43% / cover no-repeat;
 
   color: #f5f6ff;
 

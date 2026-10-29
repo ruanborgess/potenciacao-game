@@ -25,7 +25,7 @@ body {
   justify-content: center;
   background:
     linear-gradient(180deg, rgba(0, 8, 30, 0.38) 0%, rgba(2, 8, 28, 0.15) 30%, rgba(2, 8, 28, 0.72) 100%),
-    url("../assets/images/fundo_inicio.png") center 93% / cover no-repeat;
+    url("../assets/images/background/fundo_inicio.png") center 93% / cover no-repeat;
   font-family: "Press Start 2P", cursive;
   overflow: hidden;
 }
@@ -44,7 +44,7 @@ body.is-map .menu-wrapper {
 body.is-map {
   background:
     linear-gradient(180deg, rgba(0, 8, 30, 0.2), rgba(2, 8, 28, 0.45)),
-    url("../assets/images/fundo_mapa.png") center / cover no-repeat;
+    url("../assets/images/background/fundo_mapa.png") center / cover no-repeat;
 }
 
 body::before {

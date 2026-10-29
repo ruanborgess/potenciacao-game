@@ -1,21 +1,21 @@
 const storyScenes = [
   {
-    image: "../assets/images/personagem.png",
+    image: "../assets/images/characters/personagem.png",
     title: "O Reino Exponencial precisa de você.",
     text: "Em uma noite sem estrelas, a luz que protegia o reino desapareceu. Sem ela, os cálculos perderam a força e as vilas começaram a se apagar."
   },
   {
-    image: "../assets/images/boss.png",
+    image: "../assets/images/characters/boss.png",
     title: "Potencius tomou o castelo.",
     text: "No alto da montanha, o feiticeiro Potencius roubou a energia das potências. Ele espalhou mini-chefões pelo caminho para impedir qualquer herói de chegar até ele."
   },
   {
-    image: "../assets/images/personagem_bravo.png",
+    image: "../assets/images/characters/personagem_bravo.png",
     title: "Sua jornada começa agora.",
     text: "Aprenda a usar base e expoente como aliados. A cada desafio vencido, você recuperará uma parte da energia do reino e ficará mais perto do castelo."
   },
   {
-    image: "../assets/images/boss_bravo.png",
+    image: "../assets/images/characters/boss_bravo.png",
     title: "O desafio final espera por você.",
     text: "Não deixe o medo se multiplicar. Vença os guardiões, domine as potências e enfrente Potencius para devolver a luz ao Reino Exponencial."
   }
