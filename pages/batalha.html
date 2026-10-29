@@ -103,10 +103,21 @@
 
       <section id="battle-result" class="battle-result" aria-live="assertive" hidden>
         <div class="result-card">
-          <div class="result-portrait-wrap"><img id="result-boss-image" class="result-portrait" alt="" /><span aria-hidden="true">✦</span></div>
-          <p id="result-kicker" class="result-kicker">RESULTADO DA BATALHA</p>
-          <h2 id="result-title">VITÓRIA!</h2>
-          <p id="result-description" class="result-description"></p>
+          <div class="result-hero-art">
+            <span class="result-art-label">GUARDIÃO DA FASE</span>
+            <div class="result-portrait-wrap">
+              <img id="result-boss-image" class="result-portrait" alt="" />
+              <span aria-hidden="true">✦</span>
+            </div>
+            <div class="result-art-runes" aria-hidden="true">✧　✦　✧</div>
+          </div>
+
+          <div class="result-heading">
+            <p id="result-kicker" class="result-kicker">RESULTADO DA BATALHA</p>
+            <h2 id="result-title">VITÓRIA!</h2>
+            <p id="result-description" class="result-description"></p>
+          </div>
+
           <div class="result-stats">
             <p><span>ACERTOS</span><strong id="result-correct">0</strong></p>
             <p><span>ERROS</span><strong id="result-wrong">0</strong></p>

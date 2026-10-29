@@ -1,3 +1,4 @@
+// Cenas narradas antes de liberar o mapa no início da aventura.
 const storyScenes = [
   {
     image: "../assets/images/characters/personagem.png",
@@ -21,6 +22,7 @@ const storyScenes = [
   }
 ];
 
+// Elementos e estado usados para exibir a história inicial.
 const storyCharacter = document.getElementById("story-character");
 const storyStep = document.getElementById("story-step");
 const storyTitle = document.getElementById("story-title");
@@ -30,6 +32,7 @@ const introRequested = sessionStorage.getItem("batalhaPotenciasMostrarHistoria")
 const finalRequested = new URLSearchParams(window.location.search).get("final") === "1";
 let storyIndex = 0;
 
+// Atualiza imagem, título e texto da cena atual da introdução.
 function renderStoryScene() {
   const scene = storyScenes[storyIndex];
   storyCharacter.src = scene.image;
@@ -40,11 +43,13 @@ function renderStoryScene() {
   storyStartButton.textContent = storyIndex === storyScenes.length - 1 ? "Iniciar aventura" : "Próximo";
 }
 
+// Abre a introdução apenas quando a navegação veio do início do jogo.
 if (introRequested && !finalRequested) {
   document.body.classList.add("story-active");
   sessionStorage.removeItem("batalhaPotenciasMostrarHistoria");
 }
 
+// Inicializa a introdução e avança pelas cenas até liberar o mapa.
 if (storyStartButton) {
   renderStoryScene();
   storyStartButton.addEventListener("click", () => {
@@ -58,11 +63,13 @@ if (storyStartButton) {
   });
 }
 
+// Mostra a cena final quando o jogador retorna da última batalha.
 if (finalRequested) {
   document.getElementById("final-scene").hidden = false;
   sessionStorage.removeItem("batalhaPotenciasMostrarHistoria");
 }
 
+// Falas que encerram a história depois da vitória contra Potencius.
 let lineIndex = 0;
 
 const finalLines = [
@@ -110,6 +117,7 @@ const finalLines = [
   }
 ];
 
+// Elementos do encerramento manipulados ao longo dos diálogos.
 const scene = document.querySelector("#final-scene");
 const credits = document.querySelector("#credits");
 const speaker = document.querySelector("#speaker");
@@ -119,9 +127,15 @@ const button = document.querySelector("#next-line");
 const hero = document.querySelector("#hero-character");
 const villain = document.querySelector("#villain-character");
 
+// Mantém os tempos do encerramento alinhados com as transições do CSS.
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const finalSceneExitDuration = reducedMotion ? 0 : 650;
+const happyMapTransitionDuration = reducedMotion ? 0 : 4500;
+const creditsEntryTransitionDuration = reducedMotion ? 0 : 2000;
 
+// Atualiza a fala, os personagens ativos e o texto do botão de avanço.
 function renderLine() {
-  const line = finalLines[lineIndex];[]
+  const line = finalLines[lineIndex];
   scene.classList.add("changing");
 
   window.setTimeout(() => {
@@ -144,6 +158,7 @@ function renderLine() {
   }, 180);
 }
 
+// Avança os diálogos e troca para os créditos depois da transição do mapa feliz.
 button.addEventListener("click", () => {
   if (lineIndex < finalLines.length - 1) {
     lineIndex += 1;
@@ -152,20 +167,36 @@ button.addEventListener("click", () => {
   }
 
   scene.classList.add("leaving");
+  document.body.classList.add("credits-transition");
+
   window.setTimeout(() => {
     scene.hidden = true;
+  }, finalSceneExitDuration);
+
+  window.setTimeout(() => {
     credits.hidden = false;
-    document.body.classList.add("credits-active");
-    credits.querySelector(".return-link").focus();
-  }, 650);
+
+    // Escurece a tela depois da mudança do mapa e só então inicia a rolagem.
+    credits.classList.add("credits-entering");
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        credits.classList.remove("credits-entering");
+
+        window.setTimeout(() => {
+          document.body.classList.add("credits-active");
+          credits.querySelector(".return-link").focus();
+        }, creditsEntryTransitionDuration);
+      });
+    });
+  }, Math.max(finalSceneExitDuration, happyMapTransitionDuration));
 });
 
-// Observa quando o final dos créditos aparece na tela e redireciona para a página inicial
-
+// Detecta quando o fim dos créditos sai da tela e retorna à página inicial.
 const creditsEnd = document.querySelector(".credits-the-end"); // .credits-the-end é o ultimo <p> do elemento de créditos
 
 let creditsEndWasVisible = false;
 
+// Aguarda o fim do letreiro passar pela tela antes de voltar ao início.
 const creditsObserver = new IntersectionObserver((entries) => {
   const entry = entries[0];
 

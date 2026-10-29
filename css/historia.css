@@ -35,6 +35,8 @@ body {
 
   overflow: hidden;
 
+  isolation: isolate;
+
   background:
     linear-gradient(180deg, rgba(3, 8, 29, 0.35)),
     url("../assets/images/background/fundo_mapa.png") center / cover fixed;
@@ -42,6 +44,28 @@ body {
   color: #f5f6ff;
 
   font-family: "Press Start 2P", cursive;
+}
+
+/* Sobrepõe o mapa feliz gradualmente, sem cobrir os elementos do mapa. */
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  content: "";
+  pointer-events: none;
+  opacity: 0;
+
+  background:
+    linear-gradient(180deg, rgba(3, 8, 29, 0.35)),
+    url("../assets/images/background/fundo_mapa_feliz.png") center / cover fixed;
+
+  transition: opacity 4500ms ease-in-out;
+}
+
+/* Inicia a transição do fundo quando o usuário termina a história final. */
+body.credits-transition::before {
+  opacity: 1;
 }
 
 button,
@@ -334,6 +358,13 @@ a {
   display: none;
 }
 
+/* Faz a cena final desaparecer enquanto o fundo do mapa muda. */
+.final-scene.leaving {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-1.5rem);
+}
+
 /* =====================================================
    ÁREA DOS PERSONAGENS DO ENCERRAMENTO
    ===================================================== */
@@ -562,8 +593,9 @@ a {
   text-transform: uppercase;
 
   transition:
-    transform 180ms ease,
-    filter 180ms ease;
+    transform 220ms ease,
+    filter 220ms ease,
+    box-shadow 220ms ease;
 }
 
 #next-line:hover,
@@ -572,7 +604,11 @@ a {
 
   outline: none;
 
-  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 #10184c,
+    0 0 26px rgba(248, 216, 107, 0.42);
+
+  transform: translateY(-3px) scale(1.02);
 }
 
 /* =====================================================
@@ -588,11 +624,31 @@ a {
 
   overflow: hidden;
 
+  opacity: 1;
+
+  transition: opacity 2000ms ease-in-out;
+
   background: radial-gradient(
     ellipse at center,
     rgba(32, 31, 83, 0.38),
     rgba(3, 6, 24, 0.96) 72%
   );
+}
+
+/* Some com os nomes e o personagem junto da transição para o fundo feliz. */
+body.credits-transition .phase-name,
+body.credits-transition .map-character {
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 4500ms ease-in-out,
+    visibility 0s linear 4500ms;
+}
+
+/* Mantém os créditos apagados até começar a transição de escurecimento. */
+.credits.credits-entering {
+  opacity: 0;
 }
 
 .credits[hidden] {
@@ -613,6 +669,12 @@ a {
   text-align: center;
 
   animation: credits-rise 68s linear forwards;
+  animation-play-state: paused;
+}
+
+/* Inicia a rolagem depois que a tela termina de escurecer. */
+.credits-active .credits-roll {
+  animation-play-state: running;
 }
 
 .credits-overline {
@@ -709,6 +771,12 @@ a {
   font-size: 0.48rem;
 
   text-decoration: none;
+
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
 }
 
 .return-link:hover,
@@ -718,6 +786,10 @@ a {
   color: var(--neon-gold);
 
   outline: none;
+
+  box-shadow: 0 0 18px rgba(248, 216, 107, 0.32);
+
+  transform: translateY(-2px);
 }
 
 @keyframes credits-rise {
@@ -803,11 +875,15 @@ a {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  body::before,
+  body.credits-transition .phase-name,
+  body.credits-transition .map-character,
   .story-intro,
   .story-character,
   .story-dialogue,
   .final-scene,
   .final-character,
+  .credits,
   .credits-roll,
   .credits-star {
     animation: none;
