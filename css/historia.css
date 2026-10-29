@@ -143,11 +143,11 @@ a {
    ===================================================== */
 
 .story-intro .story-character.story-character--scene-1 {
-  bottom: clamp(-22rem, -6vw, 10rem);
+  bottom: clamp(-22rem, -1.5vw, 15rem);
 
-  left: clamp(1rem, 10vw, 15rem);
+  left: clamp(1rem, 6vw, 15rem);
 
-  width: clamp(380px, 40vw, 690px);
+  width: clamp(380px, 45vw, 1000px);
 }
 
 .story-intro .story-character.story-character--scene-2 {
@@ -159,11 +159,11 @@ a {
 }
 
 .story-intro .story-character.story-character--scene-3 {
-  bottom: clamp(-14rem, -6vw, 10rem);
+  bottom: clamp(-14rem, -1vw, 15rem);
 
   left: clamp(1rem, 4vw, 10rem);
 
-  width: clamp(460px, 52vw, 780px);
+  width: clamp(460px, 45vw, 780px);
 }
 
 .story-intro .story-character.story-character--scene-4 {
@@ -403,29 +403,29 @@ a {
 
 #final-scene .final-character--scene-1,
 #final-scene .final-character--scene-5 {
-  bottom: clamp(-22rem, -4vw, 10rem);
-  left: clamp(1rem, 9vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
+  bottom: clamp(-22rem, -1vw, 15rem);
+  left: clamp(1rem, 4vw, 10rem);
+  width: clamp(380px, 45vw, 1000px);
 }
 
 #final-scene .final-character--scene-2,
 #final-scene .final-character--scene-6 {
-  bottom: clamp(-22rem, -10vw, 10rem);
+  bottom: clamp(-22rem, -1.5vw, 15rem);
   left: clamp(1rem, 8vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
+  width: clamp(380px, 50vw, 1000px);
 }
 
 #final-scene .final-character--scene-3,
 #final-scene .final-character--scene-7 {
-  bottom: clamp(-14rem, -6vw, 6rem);
+  bottom: clamp(-14rem, -1.5vw, 15rem);
   left: clamp(1rem, 4vw, 10rem);
-  width: clamp(460px, 52vw, 780px);
+  width: clamp(460px, 45vw, 1000px);
 }
 
 #final-scene .final-character--scene-4 {
-  bottom: clamp(-22rem, -8vw, 10rem);
-  left: clamp(1rem, 9vw, 10rem);
-  width: clamp(380px, 45vw, 690px);
+  bottom: clamp(-22rem, -1.5vw, 15rem);
+  left: clamp(1rem, 6vw, 10rem);
+  width: clamp(380px, 50vw, 1000px);
 }
 
 /*

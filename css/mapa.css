@@ -219,7 +219,7 @@ body {
     um personagem caminhando pelo mundo.
   */
 
-  width: 65px;
+  width: 100px;
   height: auto;
 
   pointer-events: none;
@@ -323,7 +323,7 @@ body {
   }
 }
 
-/* Selos de progressão: cadeado e conclusão ficam ancorados ao nome da fase. */
+/* Selos de progressï¿½o: cadeado e conclusï¿½o ficam ancorados ao nome da fase. */
 .phase-name {
   position: relative;
 }
