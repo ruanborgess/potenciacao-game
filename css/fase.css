@@ -29,7 +29,7 @@ body {
       rgba(3, 5, 22, 0.18),
       rgba(3, 4, 18, 0.4)
     ),
-    url("../assets/images/background/fundo_selecao_arvore.png") center 0%;
+    var(--phase-background) center 0%;
 }
 
 button,
@@ -600,7 +600,7 @@ a {
   transition: width 0.2s ease;
 }
 
-/* Selo da progressão: deixa o número livre e prende o cadeado ao retrato. */
+/* Selo da progressï¿½o: deixa o nï¿½mero livre e prende o cadeado ao retrato. */
 .boss-card.is-locked {
   color: #b8b2c8;
   border-color: rgba(125, 116, 151, .72);

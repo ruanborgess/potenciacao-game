@@ -7,7 +7,7 @@ const phaseBosses = {
       exp: "150 EXP",
       description: "O primeiro defensor do reino. Mostre que você domina as bases antes de seguir pela jornada.",
       level: "NÍVEL 4",
-      difficulty: 2,
+      difficulty: 1,
       expPercent: 58
     },
     {
@@ -17,7 +17,7 @@ const phaseBosses = {
       exp: "200 EXP",
       description: "Ele conhece cada número da vila e desafia aventureiros a escolher a base correta.",
       level: "NÍVEL 6",
-      difficulty: 3,
+      difficulty: 1,
       expPercent: 68
     },
     {
@@ -27,7 +27,7 @@ const phaseBosses = {
       exp: "250 EXP",
       description: "A última barreira da vila. Vença suas potências para abrir caminho até a árvore.",
       level: "NÍVEL 8",
-      difficulty: 4,
+      difficulty: 2,
       expPercent: 78
     }
   ],
@@ -50,7 +50,7 @@ const phaseBosses = {
       exp: "350 EXP",
       description: "Uma sentinela de cristais que cresce a cada expoente dominado.",
       level: "NÍVEL 16",
-      difficulty: 4,
+      difficulty: 3,
       expPercent: 84
     },
     {
@@ -60,7 +60,7 @@ const phaseBosses = {
       exp: "500 EXP",
       description: "A energia final da árvore. Apenas quem domina as potências consegue vencê-la.",
       level: "NÍVEL 20",
-      difficulty: 5,
+      difficulty: 4,
       expPercent: 95
     }
   ],
@@ -73,7 +73,7 @@ const phaseBosses = {
       exp: "300 EXP",
       description: "O vigia só libera a passagem para quem reconhece o poder de cada expoente.",
       level: "NÍVEL 22",
-      difficulty: 3,
+      difficulty: 4,
       expPercent: 78
     },
     {
@@ -81,7 +81,7 @@ const phaseBosses = {
       image: "../assets/images/boss/bossPortao2.png",
       health: "1.800 / 1.800",
       exp: "400 EXP",
-      description: "Seu escudo cresce com cada cálculo. Use estratégia para atravessar o portão.",
+      description: "Sua marreta cresce com cada cálculo. Use estratégia para atravessar o portão.",
       level: "NÍVEL 26",
       difficulty: 4,
       expPercent: 88
@@ -93,7 +93,7 @@ const phaseBosses = {
       exp: "550 EXP",
       description: "A força final diante do castelo. Apenas quem domina as potências passa por ele.",
       level: "NÍVEL 30",
-      difficulty: 5,
+      difficulty: 4,
       expPercent: 96
     }
   ],
@@ -101,20 +101,20 @@ const phaseBosses = {
   castelo: [
     {
       name: "SOMBRA POTENCIAL",
-      image: "../assets/images/characters/boss.png",
+      image: "../assets/images/characters/cientista.png",
       health: "2.400 / 2.400",
       exp: "600 EXP",
-      description: "Uma sombra criada pela energia roubada do reino. Enfrente-a no coração do castelo.",
+      description: "Cientista, o resposável por criar todos os guardiões do reino, e espalhar a escuridão rapidamente.",
       level: "NÍVEL 34",
       difficulty: 4,
       expPercent: 86
     },
     {
       name: "O CIENTISTA",
-      image: "../assets/images/characters/cientista.png",
+      image: "../assets/images/characters/ninja.png",
       health: "2.800 / 2.800",
       exp: "750 EXP",
-      description: "Cientista, o resposável por criar todos os guardiões do reino, e espalhar a escuridão rapidamente.",
+      description: "Ninja Sombrio, o guerreiro implacável responsável por enfrentar quem ousa desafiar seu Rei.",
       level: "NÍVEL 38",
       difficulty: 5,
       expPercent: 94
@@ -124,7 +124,7 @@ const phaseBosses = {
       image: "../assets/images/characters/boss.png",
       health: "3.500 / 3.500",
       exp: "1.000 EXP",
-      description: "O senhor do Castelo Exponencial. Derrote-o para devolver a luz ao Reino Exponencial.",
+      description: "Potencius, o Rei das Potências, que governa o reino com sua maldade e desafia todos que tentam derrotá-lo.",
       level: "NÍVEL 42",
       difficulty: 5,
       expPercent: 100
@@ -139,11 +139,49 @@ const phaseTitles = {
   castelo: "CASTELO EXPONENCIAL"
 };
 
+const phaseBackgrounds = {
+  vila: {
+    image: "../assets/images/background/fundo_selecao_vila.png",
+    position: "center 0%",
+    size: "auto",
+    repeat: "repeat",
+  },
+  arvore: {
+    image: "../assets/images/background/fundo_selecao_arvore.png",
+    position: "center 0%",
+    size: "auto",
+    repeat: "repeat"
+  },
+  portao: {
+    image: "../assets/images/background/fundo_selecao_portao.png",
+    position: "center 0%",
+    size: "auto",
+    repeat: "repeat"
+  },
+  castelo: {
+    image: "../assets/images/background/fundo_selecao_castelo.png",
+    position: "center 0%",
+    size: "auto",
+    repeat: "repeat"
+  }
+};
+
 const phase = new URLSearchParams(window.location.search).get("fase");
 const isSelectionPage = document.querySelector(".boss-selection");
 
 if (isSelectionPage && phase && phaseBosses[phase] && (window.Progressao?.faseLiberada(phase) ?? true)) {
 document.body.dataset.phase = phase;
+const phaseBackground = phaseBackgrounds[phase];
+document.body.style.setProperty(
+  "--phase-background",
+  `url("${phaseBackground.image}")`
+);
+document.body.style.backgroundPosition =
+  `0% 0%, 0% 0%, ${phaseBackground.position}`;
+document.body.style.backgroundSize =
+  `auto, auto, ${phaseBackground.size}`;
+document.body.style.backgroundRepeat =
+  `repeat, repeat, ${phaseBackground.repeat}`;
 const bosses = phaseBosses[phase];
 
 const cards = [...document.querySelectorAll(".boss-card")];
