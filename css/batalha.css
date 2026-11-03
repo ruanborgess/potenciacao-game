@@ -196,6 +196,20 @@ input {
 .boss-turn.is-special #boss-turn-label {
   color: #ffb2c6;
 }
+.boss-turn.is-boss-mistake {
+  border-color: #73f2ae;
+  background: linear-gradient(
+    145deg,
+    rgba(12, 61, 54, 0.97),
+    rgba(8, 28, 43, 0.97)
+  );
+  box-shadow:
+    inset 0 0 0 2px rgba(115, 242, 174, 0.2),
+    0 0 30px rgba(67, 232, 157, 0.34);
+}
+.boss-turn.is-boss-mistake #boss-turn-label {
+  color: #a6ffcf;
+}
 @keyframes panel-arrive {
   from {
     opacity: 0;

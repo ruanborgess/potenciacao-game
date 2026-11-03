@@ -175,7 +175,7 @@ a {
 }
 
 .story-intro .story-character.story-character--scene-2 {
-  bottom: clamp(-22rem, -1.5vw, 15rem);
+  bottom: clamp(-22rem, -3vw, 15rem);
 
   left: clamp(1rem, 5vw, 10rem);
 
@@ -191,11 +191,11 @@ a {
 }
 
 .story-intro .story-character.story-character--scene-4 {
-  bottom: clamp(-22rem, -2vw, 15rem);
+  bottom: clamp(-22rem, -5vw, 15rem);
 
-  left: clamp(1rem, 4vw, 15rem);
+  left: clamp(-50rem, -1vw, 15rem);
 
-  width: clamp(380px, 50vw, 1000px);
+  width: clamp(380px, 58vw, 1000px);
 }
 
 /* =====================================================
@@ -399,11 +399,7 @@ a {
   opacity: 0;
   visibility: hidden;
 
-  transition:
-    opacity 0.5s ease,
-    visibility 0.5s ease,
-    filter 0.5s ease,
-    transform 0.5s ease;
+  transition: none;
 }
 
 /* =====================================================
@@ -433,29 +429,19 @@ a {
    ===================================================== */
 
 #final-scene .final-character--scene-1,
-#final-scene .final-character--scene-5 {
+#final-scene .final-character--scene-3,
+#final-scene .final-character--scene-5,
+#final-scene .final-character--scene-7 {
   bottom: clamp(-22rem, -1vw, 15rem);
   left: clamp(1rem, 4vw, 10rem);
   width: clamp(380px, 45vw, 1000px);
 }
 
 #final-scene .final-character--scene-2,
+#final-scene .final-character--scene-4,
 #final-scene .final-character--scene-6 {
-  bottom: clamp(-22rem, -1.5vw, 15rem);
+  bottom: clamp(-22rem, -3vw, 15rem);
   left: clamp(1rem, 8vw, 10rem);
-  width: clamp(380px, 50vw, 1000px);
-}
-
-#final-scene .final-character--scene-3,
-#final-scene .final-character--scene-7 {
-  bottom: clamp(-14rem, -1.5vw, 15rem);
-  left: clamp(1rem, 4vw, 10rem);
-  width: clamp(460px, 45vw, 1000px);
-}
-
-#final-scene .final-character--scene-4 {
-  bottom: clamp(-22rem, -1.5vw, 15rem);
-  left: clamp(1rem, 6vw, 10rem);
   width: clamp(380px, 50vw, 1000px);
 }
 

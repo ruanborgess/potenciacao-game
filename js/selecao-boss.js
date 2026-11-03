@@ -5,27 +5,27 @@ const phaseBosses = {
       image: "../assets/images/boss/bossVila1.png",
       health: "800 / 800",
       exp: "150 EXP",
-      description: "O primeiro defensor do reino. Mostre que você domina as bases antes de seguir pela jornada.",
+      description: "O primeiro defensor do reino. Criado pelos carpinteiros com ajuda do Cientista, ele desafia todos que ameaçam Potencius.",
       level: "NÍVEL 4",
       difficulty: 1,
       expPercent: 58
     },
     {
-      name: "MESTRE DAS BASES",
+      name: "GUERREIRO",
       image: "../assets/images/boss/bossVila2.png",
       health: "1.000 / 1.000",
       exp: "200 EXP",
-      description: "Ele conhece cada número da vila e desafia aventureiros a escolher a base correta.",
+      description: "Filho do Carpinteiro, seu sonho é se tornar o maior guerreiro da vila, e proteger o Potencius.",
       level: "NÍVEL 6",
       difficulty: 1,
       expPercent: 68
     },
     {
-      name: "SENTINELA NUMÉRICA",
+      name: "CARPINTEIRO",
       image: "../assets/images/boss/bossVila3.png",
       health: "1.200 / 1.200",
       exp: "250 EXP",
-      description: "A última barreira da vila. Vença suas potências para abrir caminho até a árvore.",
+      description: "A última barreira da vila. O Carpinteiro Mestre, leal a Potencius, desafia todos que tentam atravessar a vila.",
       level: "NÍVEL 8",
       difficulty: 2,
       expPercent: 78
@@ -34,7 +34,7 @@ const phaseBosses = {
 
   arvore: [
     {
-      name: "GUARDIÃO DAS POTENCIAS",
+      name: "SENTINELA DAS POTENCIAS",
       image: "../assets/images/boss/bossArvore1.png",
       health: "1.200 / 1.200",
       exp: "250 EXP",
@@ -44,21 +44,21 @@ const phaseBosses = {
       expPercent: 76
     },
     {
-      name: "SENTINELA DOS EXPOENTES",
+      name: "PROJETO 0",
       image: "../assets/images/boss/bossArvore2.png",
       health: "1.600 / 1.600",
       exp: "350 EXP",
-      description: "Uma sentinela de cristais que cresce a cada expoente dominado.",
+      description: "Criado pela Botânica e pelo Cientista, o Projeto 0 é o sentinela perfeito para testar quem domina as potências.",
       level: "NÍVEL 16",
       difficulty: 3,
       expPercent: 84
     },
     {
-      name: "ENTIDADE EXPONENCIAL",
+      name: "BOTÂNICA",
       image: "../assets/images/boss/bossArvore3.png",
       health: "2.000 / 2.000",
       exp: "500 EXP",
-      description: "A energia final da árvore. Apenas quem domina as potências consegue vencê-la.",
+      description: "A energia final da árvore. a Botânica, guardiã das potências, desafia todos que tentam atravessar a árvore.",
       level: "NÍVEL 20",
       difficulty: 4,
       expPercent: 95
@@ -81,7 +81,7 @@ const phaseBosses = {
       image: "../assets/images/boss/bossPortao2.png",
       health: "1.800 / 1.800",
       exp: "400 EXP",
-      description: "Sua marreta cresce com cada cálculo. Use estratégia para atravessar o portão.",
+      description: "O cavaleiro com suas manoplas de ferro, desafia todos que tentam atravessar o portão, testando sua habilidade com potências.",
       level: "NÍVEL 26",
       difficulty: 4,
       expPercent: 88
@@ -91,7 +91,7 @@ const phaseBosses = {
       image: "../assets/images/boss/bossPortao3.png",
       health: "2.200 / 2.200",
       exp: "550 EXP",
-      description: "A força final diante do castelo. Apenas quem domina as potências passa por ele.",
+      description: "O guardião do Potencius, o último defensor do portão, desafia todos que tentam atravessar o portão.",
       level: "NÍVEL 30",
       difficulty: 4,
       expPercent: 96
@@ -100,7 +100,7 @@ const phaseBosses = {
 
   castelo: [
     {
-      name: "SOMBRA POTENCIAL",
+      name: "CIENTISTA",
       image: "../assets/images/characters/cientista.png",
       health: "2.400 / 2.400",
       exp: "600 EXP",
@@ -110,7 +110,7 @@ const phaseBosses = {
       expPercent: 86
     },
     {
-      name: "O CIENTISTA",
+      name: "NINJA SOMBRIO",
       image: "../assets/images/characters/ninja.png",
       health: "2.800 / 2.800",
       exp: "750 EXP",

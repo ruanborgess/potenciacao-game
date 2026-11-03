@@ -8,6 +8,7 @@ const bossIndex = Number(parameters.get("chefe"));
 
 const boss = phaseBosses[battlePhase]?.[bossIndex];
 const phaseSetting = battlePhaseSettings[battlePhase];
+const phaseBackground = battleBackgrounds[battlePhase];
 
 // ==================================================
 // VALIDAÇÃO
@@ -16,7 +17,7 @@ const phaseSetting = battlePhaseSettings[battlePhase];
 const bossLiberado =
   window.Progressao?.chefeLiberado(battlePhase, bossIndex) ?? true;
 
-if (!boss || !phaseSetting || !bossLiberado) {
+if (!boss || !phaseSetting || !phaseBackground || !bossLiberado) {
   window.location.replace("mapa.html");
 } else {
 
@@ -115,7 +116,7 @@ if (!boss || !phaseSetting || !bossLiberado) {
 
   screen.style.setProperty(
     "--battle-background",
-    `url("${phaseSetting.background}")`
+    `url("${phaseBackground}")`
   );
 
   document.querySelector("#phase-name").textContent =
@@ -434,6 +435,7 @@ if (!boss || !phaseSetting || !bossLiberado) {
     ui.bossTurn.hidden = false;
     ui.bossTurn.classList.toggle("is-special", special);
     ui.bossTurn.classList.remove("is-feedback");
+    ui.bossTurn.classList.remove("is-boss-mistake");
     ui.bossTurnLabel.textContent = special
       ? "ESPECIAL DO CHEFE · PODER FINAL"
       : "O CHEFE RESPONDE";
@@ -469,13 +471,22 @@ if (!boss || !phaseSetting || !bossLiberado) {
       return;
     }
 
-    ui.bossAnswer.innerHTML =
-      `Resposta: <b>${question.answer}</b><br><br> Você sofreu ${damage} de dano!`;
+    const bossMadeMistake = Math.random() < bossMistakeChance;
 
-    state.playerHealth =
-      Math.max(0, state.playerHealth - damage);
+    if (bossMadeMistake) {
+      ui.bossTurn.classList.add("is-feedback", "is-boss-mistake");
+      ui.bossTurnLabel.textContent = "O CHEFE ERROU A RESPOSTA";
+      ui.bossAnswer.innerHTML =
+        `<strong> ERROU!</strong> A resposta correta era <b>${question.answer}</b>. Você não sofreu dano.`;
+    } else {
+      ui.bossAnswer.innerHTML =
+        `Resposta: <b>${question.answer}</b><br><br> Você sofreu ${damage} de dano!`;
 
-    updateMeters();
+      state.playerHealth =
+        Math.max(0, state.playerHealth - damage);
+
+      updateMeters();
+    }
 
     await wait(2000);
 

@@ -1,6 +1,14 @@
-/* Edite os ataques, perguntas e valores de cada fase neste arquivo. */
+const battleBackgrounds = {
+  vila: "../assets/images/background/campo_batalha_vila.png",
+  arvore: "../assets/images/background/campo_batalha_arvore.png",
+  portao: "../assets/images/background/campo_batalha_portao.png",
+  castelo: "../assets/images/background/campo_batalha_castelo.png"
+};
 
 const phaseOrder = ["vila", "arvore", "portao", "castelo"];
+
+// Chance de qualquer chefe errar a resposta em cada turno (1 em 4 = 1/4).
+const bossMistakeChance = 1 / 4;
 
 const battleAttacks = [
   { id: "faisca", name: "FAÍSCA BASE", icon: "✦", cost: 50, damage: 650 },
@@ -23,10 +31,10 @@ const bossQuestions = {
 };
 
 const battlePhaseSettings = {
-  vila: { background: "../assets/images/background/campo_batalha.png", normalDamage: 260, bossDamage: 12 },
-  arvore: { background: "../assets/images/background/campo_batalha.png", normalDamage: 340, bossDamage: 15 },
-  portao: { background: "../assets/images/background/campo_batalha.png", normalDamage: 420, bossDamage: 17 },
-  castelo: { background: "../assets/images/background/campo_batalha.png", normalDamage: 4000, bossDamage: 20 }
+  vila: { normalDamage: 260, bossDamage: 12 },
+  arvore: { normalDamage: 340, bossDamage: 15 },
+  portao: { normalDamage: 420, bossDamage: 17 },
+  castelo: { normalDamage: 4000, bossDamage: 20 }
 };
 
 function createPowerQuestion([base, exponent]) {
